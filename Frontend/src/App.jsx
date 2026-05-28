@@ -1,13 +1,13 @@
-// import { useState } from 'react'
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
 // Pages Import
-import Homepage from './components/HomepageComponent/Homepage.jsx'
-import Login from './components/LoginComponent/Login.jsx';
-import NotFound from './components/NotFoundComponent/NotFound.jsx';
+const Homepage = lazy(() => import('./components/HomepageComponent/Homepage.jsx'));
+const Login = lazy(() => import('./components/LoginComponent/Login.jsx'));
+const NotFound = lazy(() => import('./components/NotFoundComponent/NotFound.jsx'));
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -45,12 +45,19 @@ function App() {
         </nav>
 
         {/* Rutas a usar */}
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={
+          <div id='Loading' className='w-100 d-flex justify-content-center align-items-center'>
+            Cargando...
+          </div>}
+        >
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
+      
     </>
   )
 }
