@@ -5,13 +5,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@popperjs/core/dist/cjs/popper.js'
 import 'bootstrap/dist/js/bootstrap.min.js';
 
-// Pages Import
-const Homepage = lazy(() => import('./components/HomepageComponent/Homepage.jsx'));
-const Login = lazy(() => import('./components/LoginComponent/Login.jsx'));
-const Userpage = lazy(() => import('./components/UserpageComponent/Userpage.jsx'));
-const Menu = lazy(() => import('./components/MenuComponent/Menu.jsx'))
-const AboutUs = lazy(() => import('./components/AboutUsComponent/AboutUs.jsx'))
-const NotFound = lazy(() => import('./components/NotFoundComponent/NotFound.jsx'));
+// Para crear más pages se tiene que correr npx generate-react-cli page [Nombre]
+// <-- Pages Import -->
+const Homepage = lazy(() => import('./pages/HomePage/Homepage.jsx'));
+const Login = lazy(() => import('./pages/LoginPage/Login.jsx'));
+const Userpage = lazy(() => import('./pages/UserPage/Userpage.jsx'));
+const Menu = lazy(() => import('./pages/MenuPage/Menu.jsx'));
+const BurgerMaker = lazy(() => import('./pages/BurgerMakerPage/BurgerMaker.jsx'))
+const AboutUs = lazy(() => import('./pages/AboutUsPage/AboutUs.jsx'))
+const NotFound = lazy(() => import('./pages/NotFoundPage/NotFound.jsx'));
+
+// Para crear más components se tiene que correr npx generate-react-cli component [Nombre]
+// <-- Components Import -->
 const Notice = lazy(() => import('./components/NoticeComponent/Notice.jsx'));
 
 // Custom Style Class
@@ -41,6 +46,7 @@ function App() {
             </button>
             <div className="collapse navbar-collapse d-lg-flex flex-row" id="navbarNav">
               <ul className="navbar-nav">
+                {/* Ligas del Navbar */}
                 <li className="nav-item">
                   <NavLink className="nav-link" style={navLinkStyles} to="/">Inicio</NavLink>
                 </li>
@@ -52,6 +58,7 @@ function App() {
                 </li>
                 
               </ul>
+              {/* Inicio Sesion/Usuario */}
               <ul className="navbar-nav flex-grow-1 justify-content-end">
                 <li className="nav-item">
                   {user ?
@@ -83,8 +90,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/Login" element={<Login />} />
-            <Route path='/:username' element={<Userpage user={user} />} />
+            <Route path='/:username' element={<Userpage />}>
+              {/* Rutas de User */}
+            </Route>
             <Route path='/Menu' element={<Menu />} />
+            <Route path='/CrearHamburguesa' element={<BurgerMaker />}>
+              {/* Rutas de CrearHamburguesa */}
+            </Route>
             <Route path='/Nosotros' element={<AboutUs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

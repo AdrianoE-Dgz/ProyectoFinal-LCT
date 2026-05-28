@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link, Outlet } from 'react-router-dom'
 import './Userpage.css'
 
 function Userpage() {

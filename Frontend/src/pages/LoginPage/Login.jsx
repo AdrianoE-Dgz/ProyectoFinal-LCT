@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import './Login.css'
 
+import iUser from '/src/interface/userInterface.ts'
+
 function Login() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(new iUser);
   const [login, setLogin] = useState(true);
 
-  const loginUser = () => setUser();
+  const loginUser = (e) => {
+    e.preventDefault();
+
+    setUser();
+  };
+
   const switchLogin = () => {
     if(login){
       setLogin(false);
