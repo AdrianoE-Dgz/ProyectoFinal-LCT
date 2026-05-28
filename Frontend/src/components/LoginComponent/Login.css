@@ -1,0 +1,9 @@
+@media (min-width: 992px) {
+    #loginFormCont{
+        width: 38%;
+    }
+}
+
+body{
+    height: 100vh
+}

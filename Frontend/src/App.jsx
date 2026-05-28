@@ -9,6 +9,8 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 const Homepage = lazy(() => import('./components/HomepageComponent/Homepage.jsx'));
 const Login = lazy(() => import('./components/LoginComponent/Login.jsx'));
 const Userpage = lazy(() => import('./components/UserpageComponent/Userpage.jsx'));
+const Menu = lazy(() => import('./components/MenuComponent/Menu.jsx'))
+const AboutUs = lazy(() => import('./components/AboutUsComponent/AboutUs.jsx'))
 const NotFound = lazy(() => import('./components/NotFoundComponent/NotFound.jsx'));
 const Notice = lazy(() => import('./components/NoticeComponent/Notice.jsx'));
 
@@ -22,15 +24,16 @@ const navLinkStyles = ({ isActive }) => ({
 function App() {
   // const [count, setCount] = useState(0)
   // const [user, setUser] = useState<AuthUser | null>(null);
-  let user = {nombre: "Texto"}
+  let user = null;
 
-  const handleLogout = () => setUser(null);
+  // const handleLogout = () => user = {nombre: null};
+  // const handleLogin = () => user = {nombre: "Texto"};
 
   return (
     <>
       <BrowserRouter>
         {/* Navbar */}
-        <nav className="navbar navbar-expand-lg bg-body-tertiary mb-3">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
           <div className="container-fluid">
             <span className="navbar-brand mb-0 h1">Navbar</span>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,11 +55,11 @@ function App() {
               <ul className="navbar-nav flex-grow-1 justify-content-end">
                 <li className="nav-item">
                   {user ?
-                    <div className='dropdown-right w-100'>
+                    <div className='dropdown w-100'>
                       <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {user.nombre}
                       </a>
-                      <ul className="dropdown-menu mr-5">
+                      <ul className="dropdown-menu dropdown-menu-end">
                         <li><Link className="dropdown-item" to={`/${user.nombre}`}>Mi Cuenta</Link></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>
@@ -81,6 +84,8 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/Login" element={<Login />} />
             <Route path='/:username' element={<Userpage user={user} />} />
+            <Route path='/Menu' element={<Menu />} />
+            <Route path='/Nosotros' element={<AboutUs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

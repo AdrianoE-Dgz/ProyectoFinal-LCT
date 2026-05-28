@@ -1,3 +1,7 @@
-#Loading{
+#Loading, #generalContainer {
   height: 100vh;
+}
+
+#generalContainer {
+  padding-top: 4rem;
 }
