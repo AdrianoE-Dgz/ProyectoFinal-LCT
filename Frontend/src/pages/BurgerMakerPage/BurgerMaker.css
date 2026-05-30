@@ -1,0 +1,19 @@
+.topping {
+    position: absolute;
+    left: 0; 
+    right: 0;
+    margin-inline: auto; 
+    width: fit-content;
+}
+
+.topping img, img.topping {
+    height: 2.5rem;
+}
+
+#bun-bottom {
+    bottom: 0.8rem
+}
+
+#carousel1 {
+    bottom: 3.6rem;
+}

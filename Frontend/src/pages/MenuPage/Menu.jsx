@@ -5,7 +5,7 @@ function Menu() {
   return (
     <section id="generalContainer">
       <p>Menu Works!</p>
-      <Link className='btn btn-primary' to={'/Menu/CrearHamburguesa'}>Crear mi Hamburguesa</Link>
+      <Link className='btn btn-primary' to={'/CrearHamburguesa'}>Crear mi Hamburguesa</Link>
       <Outlet /> 
     </section>
   )
