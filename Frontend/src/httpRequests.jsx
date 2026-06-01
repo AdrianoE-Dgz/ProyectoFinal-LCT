@@ -1,5 +1,4 @@
 const API_URL = 'http://localhost:3000'
-// import { iUser, iNewUser } from '/src/interfaces/userInterface.ts'
 
 export async function logUser(user, password) {
   const body = {user, password};
@@ -14,9 +13,10 @@ export async function logUser(user, password) {
     const data = await res.json()
 
     if (!res.ok) {
-      
-      return
+      return {exito: false, mensaje: 'No se pudo conectar al servidor'}
     }
+
+    console.log(data);
 
     // Guardar token
     if (data.token) {
@@ -26,7 +26,7 @@ export async function logUser(user, password) {
 
   } catch (error) {
     console.error( error );
-    return 'No se pudo conectar al servidor';
+    return {exito: false, mensaje: 'No se pudo conectar al servidor'};
   }
 }
 
@@ -43,12 +43,13 @@ export async function registUser(user) {
     const data = await res.json()
 
     if (!res.ok) {
-      
-      return
+      return  {exito: false, mensaje: res.mensaje};
     }
+
+    console.log(data);
 
   } catch (error) {
     console.error( error );
-    return 'No se pudo conectar al servidor';
+    return {exito: false, mensaje: 'No se pudo conectar al servidor'};
   }
 }

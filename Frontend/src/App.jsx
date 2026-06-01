@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Link, NavLink } from 'react-router-dom';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -104,7 +104,7 @@ function App() {
       </BrowserRouter>
       {/* Notice sobre ser un proyecto escolar */}
       <Suspense fallback={<p className='fixed-bottom text-center'>Cargando Aviso...</p>}>
-        <Notice mensaje="Este es un proyecto escolar sin fines de lucro" color="warning" />
+        <Notice mensaje="Este es un proyecto escolar sin fines de lucro" color="warning" posicion='fixed-bottom' />
       </Suspense>
     </>
   )
