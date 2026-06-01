@@ -7,21 +7,21 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 // Para crear más pages se tiene que correr npx generate-react-cli page [Nombre]
 // <-- Pages Import -->
-const Homepage = lazy(() => import('./pages/HomePage/Homepage.jsx'));
-const Login = lazy(() => import('./pages/LoginPage/Login.jsx'));
-const Userpage = lazy(() => import('./pages/UserPage/Userpage.jsx'));
-const Menu = lazy(() => import('./pages/MenuPage/Menu.jsx'));
-const BurgerMaker = lazy(() => import('./pages/BurgerMakerPage/BurgerMaker.jsx'))
-const AboutUs = lazy(() => import('./pages/AboutUsPage/AboutUs.jsx'))
-const NotFound = lazy(() => import('./pages/NotFoundPage/NotFound.jsx'));
+const Homepage = lazy(() => import('/src/pages/HomePage/Homepage.jsx'));
+const Login = lazy(() => import('/src/pages/LoginPage/Login.jsx'));
+const Userpage = lazy(() => import('/src/pages/UserPage/Userpage.jsx'));
+const Menu = lazy(() => import('/src/pages/MenuPage/Menu.jsx'));
+const BurgerMaker = lazy(() => import('/src/pages/BurgerMakerPage/BurgerMaker.jsx'))
+const AboutUs = lazy(() => import('/src/pages/AboutUsPage/AboutUs.jsx'))
+const NotFound = lazy(() => import('/src/pages/NotFoundPage/NotFound.jsx'));
 
 // Para crear más components se tiene que correr npx generate-react-cli component [Nombre]
 // <-- Components Import -->
-const Notice = lazy(() => import('./components/NoticeComponent/Notice.jsx'));
+const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 
 // Custom Style Class
 const navLinkStyles = ({ isActive }) => ({
-  color: isActive ? 'var(--primary)' : 'black',
+  color: isActive ? 'blue' : 'black',
   textDecoration: 'none',
   fontWeight: isActive ? 'bold' : 'normal',
 });

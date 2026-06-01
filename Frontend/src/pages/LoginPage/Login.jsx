@@ -1,16 +1,34 @@
 import { useState } from 'react';
 import './Login.css'
 
-import iUser from '/src/interface/userInterface.ts'
+// import { iNewUser } from '/src/interfaces/userInterface.ts'
+
+import { logUser, registUser } from '/src/httpRequests';
 
 function Login() {
-  const [user, setUser] = useState(new iUser);
+  // const [user, setUser] = useState(new iUser);
   const [login, setLogin] = useState(true);
 
   const loginUser = (e) => {
     e.preventDefault();
 
-    setUser();
+    const username = e.target.loginUsername.value;
+    const password= e.target.loginPassword.value;
+
+    const data = logUser(username, password);
+  };
+
+  const registerUser = (e) => {
+    e.preventDefault();
+
+    const newUser = {
+      nombre: e.target.registerName.value,
+      usuario: e.target.registerUsername.value,
+      correo: e.target.registerEmail.value,
+      passwd: e.target.registerPassword1.value
+    };
+
+    const data = registUser(newUser);
   };
 
   const switchLogin = () => {
@@ -26,7 +44,7 @@ function Login() {
       <section id='loginFormCont' className='card p-4 m-auto'>
         {(login) ?
           <>
-            <form id="loginForm">
+            <form id="loginForm" onSubmit={loginUser}>
               <div className="mb-3">
                 <label for="loginUsername" className="form-label">Usuario</label>
                 <input type="text" className="form-control" id="loginUsername" />
@@ -43,7 +61,7 @@ function Login() {
           </>
           :
           <>
-            <form id="registerForm">
+            <form id="registerForm" onSubmit={registerUser}>
               <div className="mb-3">
                 <label for="registerName" className="form-label">Nombre</label>
                 <input type="text" className="form-control" id="registerName" />
@@ -51,6 +69,10 @@ function Login() {
               <div className="mb-3">
                 <label for="registerUsername" className="form-label">Usuario</label>
                 <input type="text" className="form-control" id="registerUsername" />
+              </div>
+              <div className="mb-3">
+                <label for="registerEmail" className="form-label">Correo</label>
+                <input type="email" className="form-control" id="registerEmail" />
               </div>
               <div className="mb-3">
                 <label for="registerPassword1" className="form-label">Contraseña: </label>
