@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import './Login.css'
 
-// import { iNewUser } from '/src/interfaces/userInterface.ts'
-
 import { logUser, registUser } from '/src/httpRequests';
 
 function Login() {
