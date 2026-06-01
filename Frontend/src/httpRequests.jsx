@@ -4,8 +4,6 @@ const API_URL = 'http://localhost:3000'
 export async function logUser(user, password) {
   const body = {user, password};
 
-  console.log(body);
-
   try {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
@@ -34,8 +32,6 @@ export async function logUser(user, password) {
 
 export async function registUser(user) {
   const body = {...user};
-
-  console.log(body);
 
   try {
     const res = await fetch(`${API_URL}/auth/register`, {
