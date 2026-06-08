@@ -12,8 +12,10 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "react": "^19.2.6",
-    "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.15.1",
+    "react-validation": "^3.0.7",
+    "validator": "^13.15.35"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

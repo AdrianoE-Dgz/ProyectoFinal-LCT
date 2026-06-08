@@ -1,0 +1,33 @@
+{
+  "component": {
+    "default": {
+      "path": "src/components",
+      "withStyle": true,
+      "withTest": false,
+      "customDirectory": "TemplateNameComponent",
+      "customTemplates": {
+        "component": "templates/component/TemplateName.jsx",
+        "style": "templates/TemplateName.css"
+      },
+      "withStory": false,
+      "withLazy": false
+    }
+  },
+  "page": {
+    "default": {
+      "path": "src/components",
+      "withStyle": true,
+      "withTest": false,
+      "customDirectory": "TemplateNamePage",
+      "customTemplates": {
+        "component": "templates/page/TemplateName.jsx",
+        "style": "templates/TemplateName.css"
+      },
+      "withStory": false,
+      "withLazy": false
+    }
+  },
+  "usesTypeScript": false,
+  "usesStyledComponents": true,
+  "testLibrary": "None"
+}
