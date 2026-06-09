@@ -1,4 +1,4 @@
-const pool = require("../BD/database.js");
+const pool = require("../db/conexion.js");
 
 async function findUserByEmail(email){
   const [rows] = await connection.query(

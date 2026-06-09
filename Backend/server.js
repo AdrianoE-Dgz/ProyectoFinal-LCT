@@ -3,9 +3,9 @@ require('dotenv').config({ override: true });
 const express = require('express');
 const cors = require('cors');
 
-const routes = require('./rutas/rutas.js');
-const authRoutes = require('./rutas/auth.routas.js');
-const pool = require('./BD/database.js'); // <-- Importamos la conexión
+const routes = require('./routes/routes.js');
+const authRoutes = require('./routes/auth.routes.js');
+const pool = require('./db/conexion.js'); // <-- Importamos la conexión
 const app = express();
 const PORT = 3000;
 app.use(cors());
