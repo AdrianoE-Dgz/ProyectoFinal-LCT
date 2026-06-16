@@ -22,7 +22,7 @@ function BurgerMaker() {
         if (imagen) {
           console.log(
             `Carrusel ${indice + 1}:`,
-            imagen.getAttribute('src')
+            imagen.getAttribute('value')
           );
         }
         else {
@@ -61,6 +61,7 @@ function BurgerMaker() {
         )}
         <img id='bun-bottom' src={BunBottomImage} />
       </div>
+      <button className='btn btn-primary' onClick={}>ordenar</button>
     </section>
   )
 }

@@ -16,31 +16,31 @@ function ToppingsCarousel(props) {
       <div id={`toppingsCarousel${props.number}`} className="carousel carousel-dark slide">
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src={PattieImage} className='toppingImage' />
+            <img src={PattieImage} className='toppingImage' value="carne" />
           </div>
           <div className="carousel-item">
-            <img src={LettuceImage} className='toppingImage' />
+            <img src={LettuceImage} className='toppingImage' value="lechuga" />
           </div>
           <div className="carousel-item">
-            <img src={CheeseImage} className='toppingImage' />
+            <img src={CheeseImage} className='toppingImage' value="Queso" />
           </div>
           <div className="carousel-item">
-            <img src={TomatoImage} className='toppingImage' />
+            <img src={TomatoImage} className='toppingImage' value="Tomate" />
           </div>
           <div className="carousel-item">
-            <img src={PickleImage} className='toppingImage' />
+            <img src={PickleImage} className='toppingImage' value="Pepinillo" />
           </div>
           <div className="carousel-item">
-            <img src={KetchupImage} className='toppingImage' />
+            <img src={KetchupImage} className='toppingImage' value="Ketchup" />
           </div>
           <div className="carousel-item">
-            <img src={MustardImage} className='toppingImage' />
+            <img src={MustardImage} className='toppingImage' value="Mostaza" />
           </div>
           <div className="carousel-item">
-            <img src={MayoImage} className='toppingImage' />
+            <img src={MayoImage} className='toppingImage' value="Mayonesa" />
           </div>
           <div className="carousel-item">
-            <img src={BBQImage} className='toppingImage' />
+            <img src={BBQImage} className='toppingImage' value="BBQ" />
           </div>
           <div className="carousel-item">
             <p className='m-0'>Nada</p>
