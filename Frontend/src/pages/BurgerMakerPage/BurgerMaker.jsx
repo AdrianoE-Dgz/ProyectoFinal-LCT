@@ -7,7 +7,11 @@ import BunBottomImage from '/src/assets/images/Bun-Bottom.svg'
 
 const ToppingsCarousel = lazy(() =>
   import('/src/components/ToppingsCarouselComponent/ToppingsCarousel.jsx')
-)
+);
+
+function GuardarBurger() {
+
+}
 
 function BurgerMaker() {
   const toppingCarousel = [1,2,3,4,5,6,7];
@@ -49,19 +53,25 @@ function BurgerMaker() {
 
   return (
     <section id="generalContainer">
-      <p>BurgerMaker Works!</p>
-      <div className='text-center position-relative'>
-        <img id='ticket' src={TickerImage} />
-        <img id='bun-top' src={BunTopImage} />
-        {toppingCarousel.map((id) =>
-          <ToppingsCarousel
-            key={id}
-            number={id}
-          />
-        )}
-        <img id='bun-bottom' src={BunBottomImage} />
+      <div id='ticket' style={{backgroundImage: `url(${TickerImage})`}} className='text-center'>
+        <div id='burger-cont' className='row'>
+          <div className='col-12'>
+            <img id='bun-top' src={BunTopImage} />
+          </div>
+          {toppingCarousel.map((id) =>
+            <div className='col-12'>
+            <ToppingsCarousel
+              key={id}
+              number={id}
+            />
+            </div>
+          )}
+          <div className='col-12'>
+            <img id='bun-bottom' src={BunBottomImage} />
+          </div>
+        </div>
       </div>
-      <button className='btn btn-primary' onClick={}>ordenar</button>
+      <button className='btn btn-primary' onClick={GuardarBurger}>ordenar</button>
     </section>
   )
 }

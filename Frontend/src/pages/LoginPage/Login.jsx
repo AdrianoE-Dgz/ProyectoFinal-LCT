@@ -6,7 +6,6 @@ import { logUser, registUser } from '/src/httpRequests';
 const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'))
 
 function Login() {
-  // const [user, setUser] = useState(new iUser);
   const [login, setLogin] = useState(true);
   const [notice, setNotice] = useState({mensaje: '', color: ''})
 
@@ -18,10 +17,10 @@ function Login() {
 
     const data = await logUser(username, password);
 
-    console.log(data);
-
     if(!data.exito){
       setNotice({mensaje: data.mensaje, color: 'danger'});
+    } else {
+      setNotice({mensaje: data.mensaje, color: 'success'});
     }
   };
 
@@ -32,12 +31,10 @@ function Login() {
       nombre: e.target.registerName.value,
       usuario: e.target.registerUsername.value,
       correo: e.target.registerEmail.value,
-      passwd: e.target.registerPassword1.value
+      password: e.target.registerPassword1.value
     };
 
     const data = registUser(newUser);
-
-    console.log(data);
 
     if(!data.exito){
       setNotice({mensaje: data.mensaje, color: 'danger'});

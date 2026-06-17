@@ -8,6 +8,7 @@ const {
     findUserByEmail,
     findUserById,
     findUserByName,
+    findUserByUsername,
     createUser,
     updateAttempts,
     saveResetToken
@@ -29,24 +30,26 @@ async function validarCaptcha(token){
 // REGISTRO
 const register = async (req, res) => {
   try {
-    const {nombre,email,password} = req.body;
+    const {usuario,nombre,correo,password} = req.body;
 
-    if (!nombre || !email || !password) {
+    console.log(req.body);
+
+    if ( !usuario || !nombre || !correo || !password ) {
       return res.status(400).json({ msg: "Todos los campos son obligatorios" });
     }
 
-    if (!email.endsWith("@gmail.com")) {
+    if (!correo.endsWith("@gmail.com")) {
       return res.status(400).json({ msg: "Solo se permiten correos Gmail" })
     }
     
-    const existingUser = await findUserByEmail(email);
+    const existingUser = await findUserByEmail(correo);
     if (existingUser) {
       return res.status(409).json({ msg: "Este correo ya está registrado" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await createUser(nombre, email, hashedPassword);
+    await createUser(usuario, nombre, correo, hashedPassword);
 
     res.status(201).json({ msg: "Usuario registrado correctamente" });
 
@@ -59,20 +62,25 @@ const register = async (req, res) => {
 
 // LOGIN
 async function login(req, res){
-  const { email, password } = req.body;
+  const { user, password } = req.body;
+  console.log("---------------------------- Login -----------------------------");
 
   try {
-    const user = await findUserByEmail(email);
+    const userCorreo = await findUserByEmail(user);
+    const userName = await findUserByUsername(user);
 
-    if (!user) {
+    if (!userCorreo && !userName) {
       return res.status(400).json({ msg: "Credenciales incorrectas" })
     }
 
-    const validPassword = await bcrypt.compare(password, user.password);
+    const usuario = userCorreo || userName;
+    console.log(usuario);
+
+    const validPassword = await bcrypt.compare(password, usuario.password);
 
     /*
     if (!validPassword) {
-      const newAttempts = user.intentos_fallidos + 1;
+      const newAttempts = usuario.intentos_fallidos + 1;
 
       let bloqueo = null;
 
@@ -80,7 +88,7 @@ async function login(req, res){
         bloqueo = new Date(Date.now() + 5 * 60 * 1000); // 5 min
       }
 
-      await updateAttempts(user.id, newAttempts, bloqueo);
+      await updateAttempts(usuario.id, newAttempts, bloqueo);
 
       return res.status(401).json({
         msg: "Contraseña incorrecta",
@@ -89,11 +97,11 @@ async function login(req, res){
     }
 
     // Reset intentos
-    await updateAttempts(user.id, 0, null);
+    await updateAttempts(usuario.id, 0, null);
     */
 
     const token = jwt.sign(
-      { id: user.id, email: user.email, rol: user.rol },
+      { id: usuario.id, correo: usuario.correo, rol: usuario.rol },
       process.env.JWT_SECRET,
       { expiresIn: "2h" }
     );
@@ -102,9 +110,9 @@ async function login(req, res){
       msg: "Login exitoso",
       token,
       usuario: {
-        nombre: user.nombre,
-        email: user.email,
-        rol: user.rol
+        nombre: usuario.nombre,
+        correo: usuario.correo,
+        rol: usuario.rol
       }
     });
 

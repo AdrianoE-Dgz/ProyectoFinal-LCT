@@ -1,12 +1,28 @@
 #ticket {
-    position: absolute;
-    left: 0; 
-    right: 0;
-    margin-inline: auto; 
-    width: fit-content;
-    z-index: -1;
+    margin: auto;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 35vh;
+    height: 70vh;
+}
+
+#burger-cont {
+    padding-top: 44%;
+    row-gap: 1.8vh;
 }
 
 #bun-top, #bun-bottom {
-    height: 2.5rem
+    width: 8vh
+}
+
+.col-12 {
+    height: 4.3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col-12 > .carousel{
+    width: 100%;
 }

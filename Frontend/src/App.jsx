@@ -18,6 +18,7 @@ const NotFound = lazy(() => import('/src/pages/NotFoundPage/NotFound.jsx'));
 // Para crear más components se tiene que correr npx generate-react-cli component [Nombre]
 // <-- Components Import -->
 const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
+const ProtectedRoute = lazy(() => import('/src/components/ProtectedRouteComponent/ProtectedRoute.jsx'))
 
 // Custom Style Class
 const navLinkStyles = ({ isActive }) => ({
@@ -27,12 +28,10 @@ const navLinkStyles = ({ isActive }) => ({
 });
 
 function App() {
-  // const [count, setCount] = useState(0)
   // const [user, setUser] = useState<AuthUser | null>(null);
   let user = null;
 
   // const handleLogout = () => user = {nombre: null};
-  // const handleLogin = () => user = {nombre: "Texto"};
 
   return (
     <>
@@ -69,7 +68,7 @@ function App() {
                       <ul className="dropdown-menu dropdown-menu-end">
                         <li><Link className="dropdown-item" to={`/${user.nombre}`}>Mi Cuenta</Link></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>
+                        <li><button className="dropdown-item">Cerrar Sesión</button></li>
                       </ul>
                     </div>
                   :
@@ -90,13 +89,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/Login" element={<Login />} />
-            <Route path='/:username' element={<Userpage />}>
-              {/* Rutas de User */}
+            <Route element={<ProtectedRoute token={localStorage.getItem('token')}/>}>
+              <Route path='/CrearHamburguesa' element={<BurgerMaker />} />
+              <Route path='/:username' element={<Userpage />}>
+                {/* Rutas de User */}
+              </Route>
             </Route>
             <Route path='/Menu' element={<Menu />} />
-            <Route path='/CrearHamburguesa' element={<BurgerMaker />}>
-              {/* Rutas de CrearHamburguesa */}
-            </Route>
             <Route path='/Nosotros' element={<AboutUs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

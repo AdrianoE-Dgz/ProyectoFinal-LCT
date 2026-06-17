@@ -5,6 +5,7 @@ async function findUserByEmail(email){
     "SELECT * FROM usuarios WHERE email = ?",
     [email]
   );
+  console.log(email, rows);
   return rows[0];
 };
 
@@ -24,10 +25,19 @@ async function findUserByName(user){
   return rows[0];
 };
 
-async function createUser(nombre, email, password){
+async function findUserByUsername(user){
+  const [rows] = await connection.query(
+    "SELECT * FROM usuarios WHERE user = ?",
+    [user]
+  );
+  console.log(user, rows);
+  return rows[0];
+};
+
+async function createUser(user, nombre, email, password){
   const [result] = await connection.query(
-    "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)",
-    [nombre, email, password]
+    "INSERT INTO usuarios (user, nombre, email, password) VALUES (?, ?, ?, ?)",
+    [user, nombre, email, password]
   );
 
   return result.insertId;
@@ -53,6 +63,7 @@ module.exports = {
     findUserByEmail,
     findUserById,
     findUserByName,
+    findUserByUsername,
     createUser,
     updateAttempts,
     saveResetToken
