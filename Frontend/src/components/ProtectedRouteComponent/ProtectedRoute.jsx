@@ -1,13 +1,20 @@
-import { lazy } from 'react';
-import { Navigate, Outlet } from 'react-router-dom'
-const isUser = lazy(() => import('/src/httpRequests'));
+import { useNavigate, Outlet } from 'react-router-dom'
+import { isUser } from '/src/httpRequests'
 
 const ProtectedRoute = () => {
-    let isAuthenticated = isUser;
+    const navigate = useNavigate();
 
-    return (
-        isAuthenticated ? 
-        <Outlet /> : <Navigate to="/login" />
-    )
+    const checkUser = async () => {
+        const response = await isUser();
+
+        if(!response){
+            navigate('/login');
+        }
+        return;
+    }
+
+    checkUser();
+
+    return (<Outlet />);
 }
 export default ProtectedRoute

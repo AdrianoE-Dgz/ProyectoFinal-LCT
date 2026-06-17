@@ -96,7 +96,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/Login" element={<Login />} />
-            <Route element={<ProtectedRoute token={localStorage.getItem('token')}/>}>
+            <Route element={<ProtectedRoute />}>
               <Route path='/CrearHamburguesa' element={<BurgerMaker />} />
               <Route path='/:username' element={<Userpage />}>
                 {/* Rutas de User */}
