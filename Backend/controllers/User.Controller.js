@@ -27,9 +27,9 @@ async function validarCaptcha(token){
 };
 */
 // REGISTRO
-async function register(req, res){
+const register = async (req, res) => {
   try {
-    const { nombre, email, password} = req.body;
+    const {nombre,email,password} = req.body;
 
     if (!nombre || !email || !password) {
       return res.status(400).json({ msg: "Todos los campos son obligatorios" });

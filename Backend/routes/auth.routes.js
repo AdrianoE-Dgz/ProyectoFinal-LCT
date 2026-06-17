@@ -6,7 +6,7 @@ const { register, login, esAdmin, esUsuario } = require("../controllers/User.Con
 router.post("/register", register);
 router.post("/login", login);
 router.get("/esAdmin", verifyToken, isAdmin, esAdmin);
-router.get('/esUsuario', verifyToken, esUsuario);
+router.get('/esUsuario',verifyToken, esUsuario);
 
 
 module.exports = router;

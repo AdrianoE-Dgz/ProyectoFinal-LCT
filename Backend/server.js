@@ -3,9 +3,10 @@ require('dotenv').config({ override: true });
 const express = require('express');
 const cors = require('cors');
 
-const productRoutes = require('./rutas/productos.rutas.js');
-const authRoutes = require('./rutas/auth.routas.js');
-const pool = require('./BD/database.js'); // <-- Importamos la conexión
+const productRoutes = require('./routes/productos.routes.js');
+const pedidosRoutes = require('./routes/pedidos.routes.js');
+const authRoutes = require('./routes/auth.routes.js');
+const pool = require('./db/conexion.js'); // <-- Importamos la conexión
 const app = express();
 const PORT = 3000;
 app.use(cors());
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 // Rutas principales
 app.use('/api/usuarios', authRoutes);
 app.use('/api/productos', productRoutes);
+app.use('/api/pedidos', pedidosRoutes);
 
 // Funcion que hace una consulta de prueba mínima que
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando
