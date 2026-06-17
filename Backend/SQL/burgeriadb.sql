@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-06-2026 a las 02:46:34
+-- Tiempo de generación: 17-06-2026 a las 23:54:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -81,9 +81,10 @@ INSERT INTO `productos` (`id`, `tipo`, `nombre`, `imagen`, `descripcion`, `preci
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
+  `user` varchar(12) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` varchar(60) DEFAULT NULL,
   `rol` varchar(45) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -91,8 +92,8 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin');
+INSERT INTO `usuarios` (`id`, `user`, `nombre`, `email`, `password`, `rol`) VALUES
+(1, '', 'admin', 'admin', 'admin', 'admin');
 
 --
 -- Índices para tablas volcadas
@@ -102,7 +103,8 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol`) VALUES
 -- Indices de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_Pedido_usuarios` (`usuarios_id`);
 
 --
 -- Indices de la tabla `productos`
@@ -136,7 +138,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

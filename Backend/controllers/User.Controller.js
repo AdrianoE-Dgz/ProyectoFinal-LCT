@@ -29,6 +29,7 @@ async function validarCaptcha(token){
 */
 // REGISTRO
 const register = async (req, res) => {
+  console.log("---------------- Registro ----------------")
   try {
     const {usuario,nombre,correo,password} = req.body;
 
@@ -42,9 +43,14 @@ const register = async (req, res) => {
       return res.status(400).json({ msg: "Solo se permiten correos Gmail" })
     }
     
-    const existingUser = await findUserByEmail(correo);
-    if (existingUser) {
+    const existingEmail = await findUserByEmail(correo);
+    if (existingEmail) {
       return res.status(409).json({ msg: "Este correo ya está registrado" });
+    }
+
+    const existingUser = await findUserByUsername(usuario);
+    if (existingUser) {
+      return res.status(409).json({ msg: "Este usuario ya existe" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -63,7 +69,6 @@ const register = async (req, res) => {
 // LOGIN
 async function login(req, res){
   const { user, password } = req.body;
-  console.log("---------------------------- Login -----------------------------");
 
   try {
     const userCorreo = await findUserByEmail(user);
@@ -74,31 +79,14 @@ async function login(req, res){
     }
 
     const usuario = userCorreo || userName;
-    console.log(usuario);
 
     const validPassword = await bcrypt.compare(password, usuario.password);
-
-    /*
+    
     if (!validPassword) {
-      const newAttempts = usuario.intentos_fallidos + 1;
-
-      let bloqueo = null;
-
-      if (newAttempts >= 3) {
-        bloqueo = new Date(Date.now() + 5 * 60 * 1000); // 5 min
-      }
-
-      await updateAttempts(usuario.id, newAttempts, bloqueo);
-
       return res.status(401).json({
-        msg: "Contraseña incorrecta",
-        intentos: newAttempts
+        msg: "Contraseña incorrecta"
       });
     }
-
-    // Reset intentos
-    await updateAttempts(usuario.id, 0, null);
-    */
 
     const token = jwt.sign(
       { id: usuario.id, correo: usuario.correo, rol: usuario.rol },
@@ -110,6 +98,7 @@ async function login(req, res){
       msg: "Login exitoso",
       token,
       usuario: {
+        // user: usuario.user,
         nombre: usuario.nombre,
         correo: usuario.correo,
         rol: usuario.rol
@@ -144,10 +133,36 @@ async function esAdmin(req, res){
   } 
 };
 
+async function datosUsuario(req, res) {
+  const { user, password } = req.body;
+
+  try {
+    const usuario = await findUserByUsername(user);
+
+    if (!usuario) {
+      return res.status(400).json({ msg: "Usuario no encontrado" })
+    }
+
+    res.json({
+      msg: "Información encontrada",
+      usuario: {
+        user: usuario.user,
+        nombre: usuario.nombre,
+        correo: usuario.correo
+      }
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Error en buscar información" });
+  }
+}
+
 module.exports = {
     //validarCaptcha,
     register,
     login,
     esUsuario,
-    esAdmin
+    esAdmin,
+    datosUsuario
 }

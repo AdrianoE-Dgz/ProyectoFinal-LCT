@@ -5,7 +5,6 @@ async function findUserByEmail(email){
     "SELECT * FROM usuarios WHERE email = ?",
     [email]
   );
-  console.log(email, rows);
   return rows[0];
 };
 
@@ -30,7 +29,6 @@ async function findUserByUsername(user){
     "SELECT * FROM usuarios WHERE user = ?",
     [user]
   );
-  console.log(user, rows);
   return rows[0];
 };
 
