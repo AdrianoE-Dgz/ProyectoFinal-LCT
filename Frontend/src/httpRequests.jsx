@@ -1,7 +1,7 @@
 const API_URL = 'http://localhost:3000'
 
-export async function logUser(user, password) {
-  const body = {user: user, password: password};
+export async function logUser(username, password) {
+  const body = {user: username, password: password};
 
   try {
     const res = await fetch(`${API_URL}/api/usuarios/login`, {
@@ -25,12 +25,12 @@ export async function logUser(user, password) {
 
     // Guardar usuario
     const usuario = data.usuario;
-    localStorage.setItem("nombre", usuario.nombre)
-    localStorage.setItem("rol", usuario.rol)
+    localStorage.setItem("nombre", usuario.nombre);
+    localStorage.setItem("rol", usuario.rol);
 
     return {exito: true, mensaje: 'Login Correcto'};
   } catch (error) {
-    return {exito: false, mensaje: error.msg};
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
   }
 }
 
@@ -51,17 +51,80 @@ export async function registUser(user) {
     }
 
     return {exito: true, mensaje: 'Registro Correcto'};
-
   } catch (error) {
     console.error( error );
-    return {exito: false, mensaje: 'No se pudo conectar al servidor'};
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
   }
 }
 
 export async function isUser() {
-  
+  try {
+    const res = await fetch(`${API_URL}/api/usuarios/esUsuario`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error( error );
+    return false;
+  }
 }
 
 export async function isAdmin() {
-  
+  try {
+    const res = await fetch(`${API_URL}/api/usuarios/esAdmin`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error( error );
+    return false;
+  }
+}
+
+export async function datosUser() {
+  try {
+    const res = await fetch(`${API_URL}/api/usuarios/datosUsuario`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: data.msg};
+    }
+
+    const usuario = data.usuario;
+    console.log(usuario);
+
+    return {exito: true, usuario: usuario};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
 }

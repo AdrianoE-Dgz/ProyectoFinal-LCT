@@ -1,6 +1,7 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Link, NavLink } from 'react-router-dom';
-import './App.css'
+import { lazy, Suspense, useContext } from 'react';
+import { Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
+import { Context } from "/src/Context.jsx";
+import '/src/App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@popperjs/core/dist/cjs/popper.js'
 import 'bootstrap/dist/js/bootstrap.min.js';
@@ -28,16 +29,22 @@ const navLinkStyles = ({ isActive }) => ({
 });
 
 function App() {
-  // const [user, setUser] = useState<AuthUser | null>(null);
-  let user = null;
+  const {user, setUser} = useContext(Context);
+  const navigate = useNavigate();
 
-  // const handleLogout = () => user = {nombre: null};
+  function handleLogout(){
+    localStorage.removeItem("nombre");
+    localStorage.removeItem("rol");
+    localStorage.removeItem("token");
+
+    setUser(null);
+    navigate("/", { replace: true });
+  }
 
   return (
     <>
-      <BrowserRouter>
-        {/* Navbar */}
-        <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+      {/* Navbar */}
+      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
           <div className="container-fluid">
             <span className="navbar-brand mb-0 h1">Navbar</span>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +75,7 @@ function App() {
                       <ul className="dropdown-menu dropdown-menu-end">
                         <li><Link className="dropdown-item" to={`/${user.nombre}`}>Mi Cuenta</Link></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><button className="dropdown-item">Cerrar Sesión</button></li>
+                        <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>
                       </ul>
                     </div>
                   :
@@ -78,15 +85,15 @@ function App() {
               </ul>
             </div>
           </div>
-        </nav>
+      </nav>
 
-        {/* Rutas a usar */}
-        <Suspense fallback={
-          <div id='Loading' className='w-100 d-flex justify-content-center align-items-center'>
-            Cargando...
-          </div>}
-        >
-          <Routes>
+      {/* Rutas a usar */}
+      <Suspense fallback={
+        <div id='Loading' className='w-100 d-flex justify-content-center align-items-center'>
+          Cargando...
+        </div>}
+      >
+        <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/Login" element={<Login />} />
             <Route element={<ProtectedRoute token={localStorage.getItem('token')}/>}>
@@ -98,9 +105,8 @@ function App() {
             <Route path='/Menu' element={<Menu />} />
             <Route path='/Nosotros' element={<AboutUs />} />
             <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+        </Routes>
+      </Suspense>
       {/* Notice sobre ser un proyecto escolar */}
       <Suspense fallback={<p className='fixed-bottom text-center'>Cargando Aviso...</p>}>
         <Notice mensaje="Este es un proyecto escolar sin fines de lucro" color="warning" posicion='fixed-bottom' />

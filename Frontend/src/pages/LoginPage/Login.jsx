@@ -1,4 +1,7 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, lazy, Suspense, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Context } from "/src/Context.jsx";
+
 import './Login.css'
 
 import { logUser, registUser } from '/src/httpRequests';
@@ -8,6 +11,9 @@ const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'))
 function Login() {
   const [login, setLogin] = useState(true);
   const [notice, setNotice] = useState({mensaje: '', color: ''})
+
+  const {setUser} = useContext(Context);
+  const navigate = useNavigate();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -20,7 +26,8 @@ function Login() {
     if(!data.exito){
       setNotice({mensaje: data.mensaje, color: 'danger'});
     } else {
-      setNotice({mensaje: data.mensaje, color: 'success'});
+      setUser({nombre: localStorage.getItem('nombre'), rol: localStorage.getItem('rol')});
+      navigate("/");
     }
   };
 
@@ -38,6 +45,8 @@ function Login() {
 
     if(!data.exito){
       setNotice({mensaje: data.mensaje, color: 'danger'});
+    } else {
+      setNotice({mensaje: data.mensaje, color: 'success'});
     }
   };
 

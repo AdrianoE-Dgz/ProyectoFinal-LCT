@@ -1,13 +1,9 @@
+import { lazy } from 'react';
 import { Navigate, Outlet } from 'react-router-dom'
+const isUser = lazy(() => import('/src/httpRequests'));
 
-const ProtectedRoute = (props) => {
-    let isAuthenticated = false;
-
-    if(props.token != null || props.token != undefined){
-      isAuthenticated = true;
-    }
-
-     console.log(isAuthenticated);
+const ProtectedRoute = () => {
+    let isAuthenticated = isUser;
 
     return (
         isAuthenticated ? 
