@@ -112,9 +112,11 @@ async function login(req, res){
 };
 
 async function esUsuario(req, res){ 
-  try { 
+  console.log('---------------- isUser ----------------')
+  try {
+    console.log('Acceso al Usuario');
     res.status(200).json({
-        message: "El usuario tiene una sesion iniciada"
+      message: "El usuario tiene una sesion iniciada"
     });
   } catch (error) { 
     console.error('Error: error al comprobar usuario', error); 
