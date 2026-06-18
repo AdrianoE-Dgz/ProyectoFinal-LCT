@@ -87,7 +87,7 @@ function Register() {
     }
 
     if(!regex.test(text)){
-      setPasswordNotice('Contraseña debe tener al menos 1 mayúscula, 1 minúscula, 1 número y 1 símbolo');
+      setPasswordNotice('Contraseña debe de ser entre 8 y 16 caracteres y debe tener al menos 1 mayúscula, 1 minúscula, 1 número y 1 símbolo');
     } else {
       setPasswordNotice(null);
     }
