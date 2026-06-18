@@ -1,4 +1,4 @@
-import { lazy, Suspense, useContext } from 'react';
+import { lazy, Suspense, useContext, useEffect } from 'react';
 import { Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
 import { Context } from "/src/Context.jsx";
 import '/src/App.css'
@@ -33,6 +33,13 @@ const navLinkStyles = ({ isActive }) => ({
 function App() {
   const {user, setUser} = useContext(Context);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("token");
+    if (loggedInUser) {
+      setUser({nombre: localStorage.getItem('nombre'), rol: localStorage.getItem('rol')});
+    }
+  }, []);
 
   function handleLogout(){
     localStorage.removeItem("nombre");
