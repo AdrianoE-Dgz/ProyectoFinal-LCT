@@ -11,11 +11,9 @@
       },
       "withStory": false,
       "withLazy": false
-    }
-  },
-  "page": {
-    "default": {
-      "path": "src/components",
+    },
+    "page": {
+      "path": "src/pages",
       "withStyle": true,
       "withTest": false,
       "customDirectory": "TemplateNamePage",

@@ -7,7 +7,9 @@
     "dev": "vite --open",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "component": "npx generate-react-cli component",
+    "page": "npx generate-react-cli component --type=page"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",

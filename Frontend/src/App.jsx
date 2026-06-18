@@ -6,20 +6,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@popperjs/core/dist/cjs/popper.js'
 import 'bootstrap/dist/js/bootstrap.min.js';
 
-// Para crear más pages se tiene que correr npx generate-react-cli page [Nombre]
+// Para crear más pages se tiene que correr npm run page [Nombre]
 // <-- Pages Import -->
 const Homepage = lazy(() => import('/src/pages/HomePage/Homepage.jsx'));
 const Login = lazy(() => import('/src/pages/LoginPage/Login.jsx'));
 const Userpage = lazy(() => import('/src/pages/UserPage/Userpage.jsx'));
+const Adminpage = lazy(() => import('/src/pages/AdminPage/Admin.jsx'));
 const Menu = lazy(() => import('/src/pages/MenuPage/Menu.jsx'));
 const BurgerMaker = lazy(() => import('/src/pages/BurgerMakerPage/BurgerMaker.jsx'))
 const AboutUs = lazy(() => import('/src/pages/AboutUsPage/AboutUs.jsx'))
 const NotFound = lazy(() => import('/src/pages/NotFoundPage/NotFound.jsx'));
 
-// Para crear más components se tiene que correr npx generate-react-cli component [Nombre]
+// Para crear más components se tiene que correr npm run component [Nombre]
 // <-- Components Import -->
 const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
-const ProtectedRoute = lazy(() => import('/src/components/ProtectedRouteComponent/ProtectedRoute.jsx'))
+const ProtectedUser = lazy(() => import('/src/components/ProtectedUserComponent/ProtectedUser.jsx'));
+const ProtectedAdmin = lazy(() => import('/src/components/ProtectedAdminComponent/ProtectedAdmin.jsx'));
 
 // Custom Style Class
 const navLinkStyles = ({ isActive }) => ({
@@ -96,11 +98,14 @@ function App() {
         <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/Login" element={<Login />} />
-            <Route element={<ProtectedRoute />}>
+            <Route element={<ProtectedUser />}>
               <Route path='/CrearHamburguesa' element={<BurgerMaker />} />
               <Route path='/:username' element={<Userpage />}>
                 {/* Rutas de User */}
               </Route>
+            </Route>
+            <Route element={<ProtectedAdmin />}>
+              <Route path='/Admin' element={<Adminpage />} />
             </Route>
             <Route path='/Menu' element={<Menu />} />
             <Route path='/Nosotros' element={<AboutUs />} />
