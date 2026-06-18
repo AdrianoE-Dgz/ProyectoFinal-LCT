@@ -128,3 +128,29 @@ export async function datosUser() {
     return {exito: false, mensaje: 'Error al conectar con el servidor'};
   }
 }
+
+export async function datosPedidosUser() {
+  try {
+    const res = await fetch(`${API_URL}/api/pedidos/obtenerPedidoUsuario`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: data.msg};
+    }
+
+    const pedidos = data;
+    console.log(pedidos);
+
+    return {exito: true, pedidos: pedidos};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}

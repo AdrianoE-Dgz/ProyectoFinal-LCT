@@ -5,7 +5,7 @@ const { verifyToken, isAdmin } = require("../middleware/middleware.js");
 
 router.get('/obtenerPedidos', verifyToken, isAdmin, getPedidos);
 router.get("/obtenerPedidoId/:id", verifyToken, getPedidoById);
-router.get('/obtenerPedidoUsuario/:id',verifyToken, getPedidoByUser);
+router.get('/obtenerPedidoUsuario',verifyToken, getPedidoByUser);
 router.post('/guardarPedido', verifyToken, postPedido)
 
 module.exports = router;

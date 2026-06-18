@@ -29,7 +29,12 @@ const getPedidoById = async (req, res) => {
 
 const getPedidoByUser = async (req, res) => { 
   try { 
-    const { id } = req.params; 
+    const { id } = req.user;
+
+    if (!id) {
+      return res.status(400).json({ msg: "Usuario no encontrado" })
+    }
+
     const pedidos = await PedidosModel.findPedidoByIdUser(id); 
  
     if (!pedidos) 

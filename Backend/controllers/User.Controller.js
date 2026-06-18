@@ -136,10 +136,12 @@ async function esAdmin(req, res){
 };
 
 async function datosUsuario(req, res) {
-  const { user, password } = req.body;
+  //const { user, password } = req.body;
+  const { id } = req.user;
 
   try {
-    const usuario = await findUserByUsername(user);
+    //const usuario = await findUserByUsername(user);
+    const usuario = await findUserById(id);
 
     if (!usuario) {
       return res.status(400).json({ msg: "Usuario no encontrado" })
@@ -150,7 +152,7 @@ async function datosUsuario(req, res) {
       usuario: {
         user: usuario.user,
         nombre: usuario.nombre,
-        correo: usuario.correo
+        correo: usuario.email
       }
     });
 
