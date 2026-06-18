@@ -1,22 +1,27 @@
-import { Outlet, Navigate } from 'react-router-dom'
+import { Outlet, Navigate, useLocation } from 'react-router-dom'
 import { isAdmin } from '/src/httpRequests.jsx'
 import { useEffect, useState } from 'react';
 
 function ProtectedAdmin() {
-  const [isAdministrador, setIsAdmin] = useState(false)
+  const [isAdministrador, setIsAdmin] = useState(null);
+  const location = useLocation();
 
   const checkAdmin = async () => {
-    const response = await isAdmin();
-
-    if(response){
-      setIsAdmin(true);
+    try{
+      const response = await isAdmin();
+      setIsAdmin(!!response);
+    }catch(error){
+      setIsAdmin(false);
     }
-    return;
   }
     
   useEffect(() => {
     checkAdmin();
-  });
+  }, [location.pathname]);
+
+  if(isAdministrador === null){
+    return <p>Cargando...</p>;
+  }
 
   return (
     <>

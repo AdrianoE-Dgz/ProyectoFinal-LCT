@@ -1,26 +1,31 @@
-import { Outlet, Navigate } from 'react-router-dom'
+import { Outlet, Navigate, useLocation } from 'react-router-dom'
 import { isUser } from '/src/httpRequests.jsx'
 import { useEffect, useState } from 'react';
 
 const ProtectedUser = () => {
-  const [isUser, setIsUser] = useState(false);
+  const [esUser, setEsUser] = useState(null);
+  const location = useLocation();
 
   const checkUser = async () => {
-    const response = await isUser();
-
-    if(response){
-      setIsUser(true);
+    try{
+      const response = await isUser();
+      setEsUser(!!response);
+    }catch(error){
+      setEsUser(false);
     }
-    return;
-  }
+  };
     
   useEffect(() => {
     checkUser();
-  });
+  }, [location.pathname]);
+
+  if(esUser === null){
+    return <p>Cargando...</p>;
+  }
 
   return (
     <>
-      { isUser ?
+      { esUser ?
         <Outlet />
         :
         <Navigate to="/login" />
