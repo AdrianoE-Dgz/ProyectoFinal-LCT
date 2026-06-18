@@ -47,10 +47,14 @@ export async function registUser(user) {
     const data = await res.json();
 
     if (!res.ok) {
+      console.log('RES IS *NOT* OK');
+      console.log(data);
       return  {exito: false, mensaje: data.msg};
     }
 
+    console.log('RES IS OK')
     return {exito: true, mensaje: 'Registro Correcto'};
+
   } catch (error) {
     console.error( error );
     return {exito: false, mensaje: 'Error al conectar con el servidor'};
