@@ -55,49 +55,67 @@ function App() {
   return (
     <>
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-          <div className="container-fluid">
-            <span className="navbar-brand mb-0 h1">Navbar</span>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse d-lg-flex flex-row" id="navbarNav">
-              <ul className="navbar-nav">
-                {/* Ligas del Navbar */}
-                <li className="nav-item">
-                  <NavLink className="nav-link" style={navLinkStyles} to="/">Inicio</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" style={navLinkStyles} to="/Menu">Menú</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" style={navLinkStyles} to="/Nosotros">Conocenos</NavLink>
-                </li>
-                
-              </ul>
-              {/* Inicio Sesion/Usuario */}
-              <ul className="navbar-nav flex-grow-1 justify-content-end">
-                <li className="nav-item">
-                  {user ?
-                    <div className='dropdown w-100'>
-                      <a className="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {user.nombre}
-                      </a>
-                      <ul className="dropdown-menu dropdown-menu-end">
-                        <li><Link className="dropdown-item" to={`/usuario/${user.nombre}`}>Mi Cuenta</Link></li>
-                        <li><hr className="dropdown-divider" /></li>
-                        <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>
-                      </ul>
-                    </div>
-                  :
-                    <Link className="nav-link" to="/Auth/Login">Inicia Sesión</Link>
-                  }
-                </li>
-              </ul>
-            </div>
-          </div>
-      </nav>
+      <nav className="navbar navbar-expand-lg custom-navbar fixed-top">
+        <div className="container-fluid">
+          <span className="navbar-brand custom-brand"> Papa's Burgeria </span>
 
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className="collapse navbar-collapse d-lg-flex flex-row" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <NavLink className="nav-link custom-link" style={navLinkStyles} to="/"> Inicio </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink className="nav-link custom-link" style={navLinkStyles} to="/Menu"> Menú </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink className="nav-link custom-link" style={navLinkStyles} to="/Nosotros"> Conócenos </NavLink>
+              </li>
+            </ul>
+
+            <ul className="navbar-nav flex-grow-1 justify-content-end">
+              <li className="nav-item">
+                {user ? (
+                  <div className="dropdown w-100">
+                    <a
+                      className="nav-link dropdown-toggle custom-user"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      {user.nombre}
+                    </a>
+
+                    <ul className="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <Link className="dropdown-item" to={`/usuario/${user.nombre}`}> Mi Cuenta </Link>
+                      </li>
+
+                      <li>
+                        <hr className="dropdown-divider" />
+                      </li>
+
+                      <li>
+                        <button className="dropdown-item" onClick={handleLogout}>
+                          Cerrar Sesión
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  <Link className="nav-link custom-login" to="/Auth/Login"> Inicia Sesión </Link>
+                )}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
       {/* Rutas a usar */}
       <Suspense fallback={
         <div id='Loading' className='w-100 d-flex justify-content-center align-items-center'>

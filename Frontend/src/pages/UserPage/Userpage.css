@@ -1,9 +1,11 @@
 #generalContainer{
-    overflow-y: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
 }
 
 #userCont {
-    height: 103%;
+    min-height: 103%;
+    height: auto;
     width: 90%;
 
     padding-top: 3%;
@@ -12,17 +14,24 @@
     margin-top: -4%;
     margin-right: auto;
     margin-left: auto;
+
+    border-radius: 15px;
 }
 
 th, td{
     font-size: 0.6rem;
+    vertical-align: middle;
+}
+
+th {
+    text-align: center;
 }
 
 @media (min-width: 992px) {
     #userCont{
         padding: 2%;
         margin-top: -1%;
-        width: 50%;
+        width: 90%;
     }
 
     th, td{
@@ -32,14 +41,29 @@ th, td{
 
 .user-info {
     padding-left: 5%;
-    line-height: .5rem;
     margin-bottom: 1rem;
+
+    
+    border: 5px solid #0d6efd;
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.user-info p {
+    line-height: 1.2rem;
+    margin-bottom: 0.75rem;
 }
 
 .table {
     overflow-y: auto;
     height: 50%;
     max-width: 100%;
+    margin-bottom: 0;
+}
+
+.table td {
+    word-wrap: break-word;
 }
 
 #idCol {
@@ -48,6 +72,23 @@ th, td{
 }
 
 table{
-    table-layout: fixed;
-    width: 25%;
+    table-layout: auto;
+    width: 100%;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+h2 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.badge {
+    font-size: 0.9rem;
+}
+
+.alert {
+    border-radius: 10px;
 }
