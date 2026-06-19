@@ -3,7 +3,7 @@ import './NotFound.css'
 
 function NotFound() {
   return (
-    <section id="generalContainer" className="d-flex flex-column justify-content-center align-items-center text-center">
+    <section id='NotFoundCont' className="d-flex flex-column justify-content-center align-items-center text-center general-container">
       <h1 className="error-code">404</h1>
       
       <h2 className="error-title">

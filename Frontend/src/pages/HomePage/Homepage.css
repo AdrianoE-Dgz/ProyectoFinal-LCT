@@ -1,6 +1,4 @@
-#generalContainer {
-  min-height: 100vh;
-
+#HomeCont {
   background-image:
     linear-gradient(
       rgba(36, 88, 122, 0.6),

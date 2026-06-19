@@ -6,7 +6,7 @@ import TarjetaMenu from '/src/components/tarjetaMenu/tarjetaMenu';
 function Menu() {
   const { productos, error } = useDatosProductos();
   return (
-    <section id="generalContainer">
+    <section id='MenuCont' className="general-container">
       <h2>Menu</h2>
       <div className='divMenu'>
         {productos.filter(producto => producto.tipo>2).map((producto)=>(

@@ -2,7 +2,7 @@ import './TemplateName.css'
 
 function TemplateName() {
   return (
-    <section id="generalContainer">
+    <section id="TemplateNameCont" className="general-container">
       <p>TemplateName Works!</p>
     </section>
   )

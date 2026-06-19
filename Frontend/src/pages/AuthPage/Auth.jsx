@@ -23,7 +23,7 @@ function Auth() {
   };
 
   return (
-    <section id="generalContainer" className='d-flex flex-column align-items-center'>
+    <section className='general-container d-flex flex-column align-items-center'>
       <section id='FormCont' className='card p-4 m-auto'>
         <Suspense>
           <Outlet context={{authCallback}} />

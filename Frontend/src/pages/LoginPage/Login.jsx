@@ -1,11 +1,13 @@
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { Context } from "/src/Context.jsx";
 import { logUser } from '/src/httpRequests';
 import './Login.css'
 
 function Login() {
   const [logUsername, setUsername] = useState(null);
   const [logPassword, setPassword] = useState(null);
+  const {setUser} = useContext(Context);
 
   const navigate = useNavigate();
   const { authCallback } = useOutletContext();
@@ -45,13 +47,23 @@ function Login() {
     navigate('/Auth/Register');
   }
 
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("token");
+    if (loggedInUser) {
+      localStorage.removeItem("nombre");
+      localStorage.removeItem("rol");
+      localStorage.removeItem("token");
+
+      setUser(null);
+    }
+  }, [setUser])
+
   return (
     <>
       <form id="loginForm" onSubmit={loginUser}>
         <div className="mb-3">
           <label for="loginUsername" className="form-label">Usuario</label>
           <input type="text" className="form-control" value={logUsername} onChange={handleUsername} />
-          
         </div>
         <div className="mb-3">
           <label for="loginPassword" className="form-label">Contraseña</label>
@@ -62,8 +74,7 @@ function Login() {
         </div>
       </form>
       <p className='text-center'>¿No tienes una cuenta? <a href='' className='text-primary' onClick={goRegister}>Registrate</a></p>
-    </>
-            
+    </> 
   )
 }
 

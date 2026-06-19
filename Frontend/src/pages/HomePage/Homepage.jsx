@@ -7,8 +7,8 @@ import fondo from '/src/assets/images/fondo.jpg'
 function Homepage() {
   return (
     <section
-      id="generalContainer"
-      className="d-flex flex-column justify-content-start align-items-center"
+      id='HomeCont'
+      className="d-flex flex-column justify-content-start align-items-center general-container"
       style={{
         '--background-image': `url(${fondo})`
       }}

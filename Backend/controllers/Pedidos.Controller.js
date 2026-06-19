@@ -50,9 +50,9 @@ const getPedidoByUser = async (req, res) => {
 const postPedido = async (req, res) => { 
   try {
     const usuarios_id = req.user.id;
-    const { contenido, fechaPedido, fechaEntrega, precio } = req.body; 
+    const { contenido, fechaPedido, fechaEntrega, precio, direccion } = req.body; 
 
-    if (!usuarios_id || !contenido || !fechaPedido || !fechaEntrega || !precio ){
+    if (!usuarios_id || !contenido || !fechaPedido || !fechaEntrega || !precio || !direccion ){
       console.log(usuarios_id, contenido, fechaPedido, fechaEntrega, precio);
       return res.status(400).json({ mensaje: 'Faltan datos obligatorios' });
     }

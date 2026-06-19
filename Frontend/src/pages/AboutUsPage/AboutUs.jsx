@@ -2,7 +2,7 @@ import './AboutUs.css'
 
 function AboutUs() {
   return (
-    <section id="generalContainer">
+    <section id='AboutUsCont' className="general-container">
       <p>AboutUs Works!</p>
     </section>
   )

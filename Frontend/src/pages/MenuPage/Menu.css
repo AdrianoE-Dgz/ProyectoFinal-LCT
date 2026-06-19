@@ -1,7 +1,35 @@
-.divMenu{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 4%;
-    row-gap: 20px;
-    padding: 0 4%;
+#MenuCont {
+    padding: 6rem 2rem 5rem;
+    background-color: #F8E7B5;
+    text-align: center;
+    height: 100%;
+}
+
+#MenuCont h2 {
+    color: #7A4A24;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.divMenu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.menu-button {
+    background-color: #D6453D;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 12px 30px;
+    transition: 0.3s;
+}
+
+.menu-button:hover {
+    background-color: #E88A2E;
+    transform: scale(1.05);
 }
