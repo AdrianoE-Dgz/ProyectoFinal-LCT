@@ -190,3 +190,26 @@ export async function datosPedidosUser() {
     return {exito: false, mensaje: 'Error al conectar con el servidor'};
   }
 }
+
+export async function datosProductos() {
+  try {
+    const res = await fetch(`${API_URL}/api/productos/getProductos`, {
+      method: "GET"
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: "Error al obtener datos"};
+    }
+
+    const productos = data;
+    console.log(productos);
+
+    return {exito: true, productos: productos};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}

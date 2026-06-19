@@ -28,7 +28,7 @@ async function findPedidoByIdUser(id){
 
 async function getAllPedidos() {
     try {
-        const [rows] = await pool.query("SELECT * FROM pedido")
+        const [rows] = await connection.query("SELECT * FROM pedido")
         return rows;
     } catch (error) {
         console.error("Error al conectarse con al base de datos", error);
@@ -37,16 +37,31 @@ async function getAllPedidos() {
 }
 
 async function insertPedido(usuarios_id, contenido, fechaPedido, fechaEntrega, precio) {
-    const [result] = await pool.query(
+    const [result] = await connection.query(
         'INSERT INTO pedido (usuarios_id, contenido, fechaPedido, fechaEntrega, precio) VALUES (?, ?, ?, ?, ?)',
         [usuarios_id, contenido, fechaPedido, fechaEntrega, precio]
     );
     return result.insertId;
 }
 
+async function updatePedido(fechaEntrega, id) {
+    const [result] = await pool.query(
+        'UPDATE pedido SET fechaEntrega = ? WHERE id = ?',
+        [fechaEntrega, id]
+    );
+    return result.affectedRows;
+}
+
+async function deletePedido(id) {
+    const [result] = await pool.query('DELETE FROM pedido WHERE id = ?', [id]);
+    return result.affectedRows;
+}
+
 module.exports = {
     findPedidoById,
     findPedidoByIdUser,
     getAllPedidos,
-    insertPedido
+    insertPedido,
+    updatePedido,
+    deletePedido
 }
