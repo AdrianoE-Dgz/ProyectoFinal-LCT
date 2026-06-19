@@ -1,14 +1,10 @@
-import { useParams, Link, Outlet } from 'react-router-dom'
 import './Userpage.css'
-import { datosPedidosUser, datosUser } from '/src/httpRequests';
-import { useEffect, useState } from 'react';
 import { useDatosUsuario } from '/src/hooks/useDatosUsuario';
 import { useDatosPedidoUser } from '/src/hooks/useDatosPedidoUser';
 
 function Userpage() {
   const { usuario, errorUser } = useDatosUsuario();
   const { pedidos, error } = useDatosPedidoUser();
-  const { username } = useParams(); 
   
   return (
     <section id="generalContainer">

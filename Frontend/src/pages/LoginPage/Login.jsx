@@ -51,7 +51,6 @@ function Login() {
         <div className="mb-3">
           <label for="loginUsername" className="form-label">Usuario</label>
           <input type="text" className="form-control" value={logUsername} onChange={handleUsername} />
-          
         </div>
         <div className="mb-3">
           <label for="loginPassword" className="form-label">Contraseña</label>
@@ -62,8 +61,7 @@ function Login() {
         </div>
       </form>
       <p className='text-center'>¿No tienes una cuenta? <a href='' className='text-primary' onClick={goRegister}>Registrate</a></p>
-    </>
-            
+    </> 
   )
 }
 

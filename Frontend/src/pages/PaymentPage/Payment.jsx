@@ -1,5 +1,5 @@
 
-import { lazy, useEffect, useContext } from 'react'
+import { lazy, useEffect, useContext, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Context } from "/src/Context.jsx";
 import { makeOrder } from '/src/httpRequests';
@@ -7,6 +7,8 @@ import './Payment.css'
 
 function Payment() {
   const { burger, setBurger } = useContext(Context);
+  const direccionRef = new useRef('');
+  const fechaRef = new useRef('');
 
   useEffect(() => {
     console.log(burger);
@@ -33,8 +35,19 @@ function Payment() {
 
   return (
     <section id="generalContainer">
-      <p>Payment Works!</p>
-      <button className='btn btn-primary' onClick={realizarPedido}>Pedido</button>
+     <form onSubmit={realizarPedido}>
+        <div className="mb-3">
+          <label className="form-label">Dirección</label>
+          <input type="text" className="form-control" ref={direccionRef} />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Fecha de Entrega</label>
+          <input type="date" className="form-control" ref={fechaRef} />
+        </div>
+          <div className='text-center mb-3'>
+          <button type="submit" className="btn btn-primary">Ordenar</button>
+        </div>
+      </form>
     </section>
   )
 }
