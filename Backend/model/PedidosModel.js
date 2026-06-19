@@ -36,16 +36,16 @@ async function getAllPedidos() {
     }
 }
 
-async function insertPedido(usuarios_id, contenido, fechaPedido, fechaEntrega, precio) {
+async function insertPedido(usuarios_id, contenido, fechaPedido, fechaEntrega, direccion, precio) {
     const [result] = await connection.query(
-        'INSERT INTO pedido (usuarios_id, contenido, fechaPedido, fechaEntrega, precio) VALUES (?, ?, ?, ?, ?)',
-        [usuarios_id, contenido, fechaPedido, fechaEntrega, precio]
+        'INSERT INTO pedido (usuarios_id, contenido, fechaPedido, fechaEntrega, direccion, precio) VALUES (?, ?, ?, ?, ?, ?)',
+        [usuarios_id, contenido, fechaPedido, fechaEntrega, direccion, precio]
     );
     return result.insertId;
 }
 
 async function updatePedido(fechaEntrega, id) {
-    const [result] = await pool.query(
+    const [result] = await connection.query(
         'UPDATE pedido SET fechaEntrega = ? WHERE id = ?',
         [fechaEntrega, id]
     );
@@ -53,7 +53,7 @@ async function updatePedido(fechaEntrega, id) {
 }
 
 async function deletePedido(id) {
-    const [result] = await pool.query('DELETE FROM pedido WHERE id = ?', [id]);
+    const [result] = await connection.query('DELETE FROM pedido WHERE id = ?', [id]);
     return result.affectedRows;
 }
 

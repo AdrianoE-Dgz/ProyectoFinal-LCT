@@ -1,18 +1,23 @@
-
-import { lazy, useEffect, useContext, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useContext, useRef } from 'react'
 import { Context } from "/src/Context.jsx";
 import { makeOrder } from '/src/httpRequests';
 import './Payment.css'
 
+const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
+
 function Payment() {
+  const navigate = useNavigate();
   const { burger, setBurger } = useContext(Context);
   const direccionRef = new useRef('');
   const fechaRef = new useRef('');
 
   useEffect(() => {
-    console.log(burger);
-  });
+    const orden = localStorage.getItem('orden') || null;
+    if(!orden) {
+
+    }
+  }, []);
 
   const realizarPedido = async (e) => {
     e.preventDefault();
@@ -25,7 +30,11 @@ function Payment() {
 
     stringBurger = stringBurger.slice(0, -1);
 
-    const data = await makeOrder(stringBurger, '00/00/00', '00/00/00', 999);
+    const hoy = new Date();
+    const entrega = fechaRef.current.value;
+    const direccion = direccionRef.current.value;
+
+    const data = await makeOrder(stringBurger, hoy, entrega, 999, direccion);
 
     console.log(data);
     if(data.exito){
@@ -33,9 +42,14 @@ function Payment() {
     }
   }
 
+  const goBurgerMaker = () => {
+    navigate('/CrearHamburguesa');
+  }
+
   return (
     <section id='PaymentCont' className="general-container">
-     <form onSubmit={realizarPedido}>
+    { burger ?
+      <form onSubmit={realizarPedido}>
         <div className="mb-3">
           <label className="form-label">Dirección</label>
           <input type="text" className="form-control" ref={direccionRef} />
@@ -48,6 +62,12 @@ function Payment() {
           <button type="submit" className="btn btn-primary">Ordenar</button>
         </div>
       </form>
+    :
+      <>
+        <Notice mensaje="No se pudo procesar el pago, intente realizar su pedido nuevamente" color="danger" />
+        <a href='' className='btn btn-primary text-center' onClick={goBurgerMaker}>Regresar a realizar Hamburguesa</a>
+      </>
+    }
     </section>
   )
 }

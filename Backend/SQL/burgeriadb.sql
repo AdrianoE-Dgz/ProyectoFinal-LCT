@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-06-2026 a las 19:03:01
+-- Tiempo de generación: 19-06-2026 a las 21:50:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,6 +33,7 @@ CREATE TABLE `pedido` (
   `contenido` varchar(500) DEFAULT NULL,
   `fechaPedido` date DEFAULT NULL,
   `fechaEntrega` date DEFAULT NULL,
+  `direccion` varchar(100) NOT NULL,
   `precio` double NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,9 +41,8 @@ CREATE TABLE `pedido` (
 -- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedido` (`id`, `usuarios_id`, `contenido`, `fechaPedido`, `fechaEntrega`, `precio`) VALUES
-(1, 2, 'Pan blanco, pollo, carne, tomate', '2026-06-18', '2026-06-30', 20.2),
-(2, 2, 'Pan blanco, carne, carne, lechuga', '2026-06-18', '2026-06-30', 15.3);
+INSERT INTO `pedido` (`id`, `usuarios_id`, `contenido`, `fechaPedido`, `fechaEntrega`, `direccion`, `precio`) VALUES
+(1, 2, 'carne,carne,carne,carne,carne,carne,carne', '0000-00-00', '0000-00-00', '', 999);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `user`, `nombre`, `email`, `password`, `rol`) VALUES
 (1, 'admin', 'Administrador', 'admin@gmail.com', '$2b$10$VcHtgWYXKh/v4OEaC4.nbe5cjL6NIGdmH7.63KaOLfyZW6yfle4.W', 'admin'),
-(2, 'uwu', 'Angel', 'angeluwu@gmail.com', '$2b$10$tyoWJASzNXAv0gkkaSwBguvDHg9a.lPjH4PSHrzvIdsmpGOxzE8ty', 'user');
+(2, 'user', 'Usuario', 'user@gmail.com', '$2b$10$rXS/6QFwx038LjYFNYvcx.hkHIUgktElCf.Czr9NMsszK0Igq45zC', 'user');
 
 --
 -- Índices para tablas volcadas
@@ -112,7 +112,8 @@ INSERT INTO `usuarios` (`id`, `user`, `nombre`, `email`, `password`, `rol`) VALU
 -- Indices de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_Pedido_usuarios` (`usuarios_id`);
 
 --
 -- Indices de la tabla `productos`
@@ -134,7 +135,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -147,6 +148,16 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `fk_Pedido_usuarios` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

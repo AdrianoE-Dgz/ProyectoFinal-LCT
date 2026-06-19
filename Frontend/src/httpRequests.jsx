@@ -61,8 +61,8 @@ export async function registUser(user) {
   }
 }
 
-export async function makeOrder(contenido, fechaPedido, fechaEntrega, precio) {
-  const body = {contenido: contenido, fechaPedido: fechaPedido, fechaEntrega: fechaEntrega, precio: precio};
+export async function makeOrder(contenido, fechaPedido, fechaEntrega, precio, direccion) {
+  const body = {contenido: contenido, fechaPedido: fechaPedido, fechaEntrega: fechaEntrega, direccion: direccion ,precio: precio};
 
   try {
     const res = await fetch(`${API_URL}/api/pedidos/guardarPedido`, {
