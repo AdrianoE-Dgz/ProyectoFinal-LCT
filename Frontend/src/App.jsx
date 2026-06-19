@@ -109,7 +109,7 @@ function App() {
                     </ul>
                   </div>
                 ) : (
-                  <Link className="nav-link custom-login" to="/Login"> Inicia Sesión </Link>
+                  <Link className="nav-link custom-login" to="/Auth/Login"> Inicia Sesión </Link>
                 )}
               </li>
             </ul>
