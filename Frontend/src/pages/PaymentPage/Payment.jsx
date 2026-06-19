@@ -11,9 +11,22 @@ function Payment() {
     console.log(burger);
   });
 
+  const realizarPedido = async (e) => {
+    e.preventDefault();
+    let stringBurger = '';
+
+    burger.map((value, index) => {
+      console.log(index,": ", value);
+      stringBurger += `${value},`
+    })
+
+    console.log(stringBurger);
+  }
+
   return (
     <section id="generalContainer">
       <p>Payment Works!</p>
+      <button onClick={realizarPedido}>Pedido</button>
     </section>
   )
 }

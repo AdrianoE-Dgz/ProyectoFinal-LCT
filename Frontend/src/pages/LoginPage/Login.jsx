@@ -23,8 +23,8 @@ function Login() {
   const loginUser = async (e) => {
     e.preventDefault();
 
-    const username = e.target.loginUsername.value;
-    const password= e.target.loginPassword.value;
+    const username = logUsername;
+    const password= logPassword;
 
     const data = await logUser(username, password);
 

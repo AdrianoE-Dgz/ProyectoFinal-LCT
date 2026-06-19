@@ -86,7 +86,7 @@ function App() {
                       </a>
                       <ul className="dropdown-menu dropdown-menu-end">
                         <li><Link className="dropdown-item" to={`/${user.nombre}`}>Mi Cuenta</Link></li>
-                        <li><hr class="dropdown-divider" /></li>
+                        <li><hr className="dropdown-divider" /></li>
                         <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>
                       </ul>
                     </div>
