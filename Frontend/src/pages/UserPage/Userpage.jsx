@@ -42,11 +42,11 @@ function Userpage() {
                 <td>
                   <ul>
                   {
-                    pedido.contenido.map((currentValue, index) => {
+                    pedido.contenido.map((currentValue, index) => (
                     <li key={index}>
                       {currentValue}
                     </li>
-                  })
+                    ))
                   }
                   </ul>
                 </td>
