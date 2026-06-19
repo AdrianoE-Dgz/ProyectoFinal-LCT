@@ -66,9 +66,46 @@ const postPedido = async (req, res) => {
   } 
 }; 
 
+const updatePedido = async (req, res) => {
+  console.log("** ENTRAR UPDATE **");
+  try { 
+    const { id } = req.params; 
+    const { fechaEntrega } = req.body; 
+ 
+    const filas = await PedidosModel.updatePedido(fechaEntrega, id); 
+    if (filas === 0) {
+      console.log('Pedido no encontrado');
+      return res.status(404).json({ mensaje: 'Pedido no encontrado' });
+    }
+ 
+    res.json({ mensaje: 'Pedido actualizado correctamente' }); 
+    console.log('Pedido actualizado correctamente');
+  } catch (error) { 
+    console.error('Error al actualizar pedido:', error); 
+    res.status(500).json({ mensaje: 'Error al actualizar pedido' }); 
+  } 
+}; 
+
+const deletePedido = async (req, res) => { 
+  try { 
+    const { id } = req.params; 
+    const filas = await PedidosModel.deletePedido(id); 
+ 
+    if (filas === 0) 
+      return res.status(404).json({ mensaje: 'Pedido no encontrado' }); 
+ 
+    res.json({ mensaje: 'Pedido eliminado correctamente' }); 
+  } catch (error) { 
+    console.error('Error al eliminar pedido:', error); 
+    res.status(500).json({ mensaje: 'Error al eliminar pedido' }); 
+  } 
+}; 
+
 module.exports = {
     getPedidoById,
     getPedidoByUser,
     getPedidos,
-    postPedido
+    postPedido,
+    updatePedido,
+    deletePedido
 }

@@ -44,9 +44,24 @@ async function insertPedido(usuarios_id, contenido, fechaPedido, fechaEntrega, p
     return result.insertId;
 }
 
+async function updatePedido(fechaEntrega, id) {
+    const [result] = await pool.query(
+        'UPDATE pedido SET fechaEntrega = ? WHERE id = ?',
+        [fechaEntrega, id]
+    );
+    return result.affectedRows;
+}
+
+async function deletePedido(id) {
+    const [result] = await pool.query('DELETE FROM pedido WHERE id = ?', [id]);
+    return result.affectedRows;
+}
+
 module.exports = {
     findPedidoById,
     findPedidoByIdUser,
     getAllPedidos,
-    insertPedido
+    insertPedido,
+    updatePedido,
+    deletePedido
 }
