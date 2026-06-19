@@ -1,4 +1,4 @@
-import { lazy, Suspense, useContext } from 'react';
+import { lazy, Suspense, useContext, useEffect } from 'react';
 import { Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
 import { Context } from "/src/Context.jsx";
 import '/src/App.css'
@@ -9,12 +9,15 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 // Para crear más pages se tiene que correr npm run page [Nombre]
 // <-- Pages Import -->
 const Homepage = lazy(() => import('/src/pages/HomePage/Homepage.jsx'));
+const AuthPage = lazy(() => import('/src/pages/AuthPage/Auth.jsx'))
 const Login = lazy(() => import('/src/pages/LoginPage/Login.jsx'));
+const Register = lazy(() => import('/src/pages/RegisterPage/Register.jsx'));
 const Userpage = lazy(() => import('/src/pages/UserPage/Userpage.jsx'));
 const Adminpage = lazy(() => import('/src/pages/AdminPage/Admin.jsx'));
 const Menu = lazy(() => import('/src/pages/MenuPage/Menu.jsx'));
-const BurgerMaker = lazy(() => import('/src/pages/BurgerMakerPage/BurgerMaker.jsx'))
-const AboutUs = lazy(() => import('/src/pages/AboutUsPage/AboutUs.jsx'))
+const BurgerMaker = lazy(() => import('/src/pages/BurgerMakerPage/BurgerMaker.jsx'));
+const PaymentPage = lazy(() => import('/src/pages/PaymentPage/Payment.jsx'))
+const AboutUs = lazy(() => import('/src/pages/AboutUsPage/AboutUs.jsx'));
 const NotFound = lazy(() => import('/src/pages/NotFoundPage/NotFound.jsx'));
 
 // Para crear más components se tiene que correr npm run component [Nombre]
@@ -33,6 +36,13 @@ const navLinkStyles = ({ isActive }) => ({
 function App() {
   const {user, setUser} = useContext(Context);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("token");
+    if (loggedInUser) {
+      setUser({nombre: localStorage.getItem('nombre'), rol: localStorage.getItem('rol')});
+    }
+  }, []);
 
   function handleLogout(){
     localStorage.removeItem("nombre");
@@ -71,12 +81,12 @@ function App() {
                 <li className="nav-item">
                   {user ?
                     <div className='dropdown w-100'>
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {user.nombre}
                       </a>
                       <ul className="dropdown-menu dropdown-menu-end">
                         <li><Link className="dropdown-item" to={`/${user.nombre}`}>Mi Cuenta</Link></li>
-                        <li><hr class="dropdown-divider" /></li>
+                        <li><hr className="dropdown-divider" /></li>
                         <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>
                       </ul>
                     </div>
@@ -97,15 +107,17 @@ function App() {
       >
         <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/Login" element={<Login />} />
+            <Route path='/Auth' element={<AuthPage /> }>
+              <Route path="Login" element={<Login />} />
+              <Route path="Register" element={<Register />} />
+            </Route>
             <Route element={<ProtectedUser />}>
               <Route path='/CrearHamburguesa' element={<BurgerMaker />} />
-              <Route path='/:username' element={<Userpage />}>
-                {/* Rutas de User */}
-              </Route>
+              <Route path='/Cobro' element={<PaymentPage />} />
+              <Route path='/:username' element={<Userpage />} />
             </Route>
             <Route element={<ProtectedAdmin />}>
-              <Route path='/Admin' element={<Adminpage />} />
+              <Route path='/Manage' element={<Adminpage />} />
             </Route>
             <Route path='/Menu' element={<Menu />} />
             <Route path='/Nosotros' element={<AboutUs />} />
@@ -114,7 +126,7 @@ function App() {
       </Suspense>
       {/* Notice sobre ser un proyecto escolar */}
       <Suspense fallback={<p className='fixed-bottom text-center'>Cargando Aviso...</p>}>
-        <Notice mensaje="Este es un proyecto escolar sin fines de lucro" color="warning" posicion='fixed-bottom' />
+        <Notice mensaje="Este es un proyecto escolar sin fines de lucro" color="warning" classes='fixed-bottom' />
       </Suspense>
     </>
   )
