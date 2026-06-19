@@ -85,7 +85,7 @@ function App() {
                         {user.nombre}
                       </a>
                       <ul className="dropdown-menu dropdown-menu-end">
-                        <li><Link className="dropdown-item" to={`/${user.nombre}`}>Mi Cuenta</Link></li>
+                        <li><Link className="dropdown-item" to={`/usuario/${user.nombre}`}>Mi Cuenta</Link></li>
                         <li><hr className="dropdown-divider" /></li>
                         <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>
                       </ul>
@@ -114,7 +114,7 @@ function App() {
             <Route element={<ProtectedUser />}>
               <Route path='/CrearHamburguesa' element={<BurgerMaker />} />
               <Route path='/Cobro' element={<PaymentPage />} />
-              <Route path='/:username' element={<Userpage />} />
+              <Route path='/usuario/:username' element={<Userpage />} />
             </Route>
             <Route element={<ProtectedAdmin />}>
               <Route path='/Manage' element={<Adminpage />} />

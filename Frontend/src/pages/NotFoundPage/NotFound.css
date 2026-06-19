@@ -1,0 +1,38 @@
+#generalContainer {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #2F7EDB,
+    #1D4F91
+  );
+
+  color: white;
+}
+
+.error-code {
+  font-size: 8rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.error-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+
+.error-button {
+  font-size: 1.1rem;
+  padding: 12px 30px;
+  font-weight: bold;
+  transition: transform 0.3s;
+}
+
+.error-button:hover {
+  transform: scale(1.05);
+}
