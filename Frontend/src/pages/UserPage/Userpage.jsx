@@ -39,10 +39,20 @@ function Userpage() {
             {pedidos.map((pedido) => (
               <tr key={pedido.id}>
                 <td>{pedido.id}</td>
-                <td>{pedido.contenido}</td>
+                <td>
+                  <ul>
+                  {
+                    pedido.contenido.map((currentValue, index) => {
+                    <li key={index}>
+                      {currentValue}
+                    </li>
+                  })
+                  }
+                  </ul>
+                </td>
                 <td>{new Date(pedido.fechaPedido).toLocaleDateString()}</td>
                 <td>{new Date(pedido.fechaEntrega).toLocaleDateString()}</td>
-                <td>{pedido.precio}</td>
+                <td>${pedido.precio}</td>
               </tr>
             ))}
           </tbody>

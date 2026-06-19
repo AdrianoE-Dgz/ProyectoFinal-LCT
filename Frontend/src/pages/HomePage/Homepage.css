@@ -1,0 +1,56 @@
+#generalContainer {
+  min-height: 100vh;
+
+  background-image:
+    linear-gradient(
+      rgba(36, 88, 122, 0.6),
+      rgba(36, 53, 122, 0.6)
+    ),
+    var(--background-image);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding-top: 100px;
+}
+
+.buttons-container{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage-logo {
+  width: 700px;
+  max-width: 100%;
+}
+
+.creation-btn {
+  background-color: #F6C44B;
+  color: #7A4A24;
+  font-weight: bold;
+  border: none;
+  padding: 12px 30px;
+  transition: 0.3s;
+}
+
+.creation-btn:hover {
+  background-color: #E88A2E;
+  color: #FFFFFF;
+}
+
+.menu-btn{
+    background-color:  #6DBE45;
+    color: #20450d;
+    font-weight: bold;
+    border: none;
+    padding: 12px 30px;
+    transition: 0.3s;
+}
+
+.menu-btn:hover{
+    background-color: #20450d;
+    color: #FFFFFF;
+}

@@ -81,17 +81,17 @@ function App() {
                 <li className="nav-item">
                   {user ?
                     <div className='dropdown w-100'>
-                      <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a className="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {user.nombre}
                       </a>
                       <ul className="dropdown-menu dropdown-menu-end">
-                        <li><Link className="dropdown-item" to={`/${user.nombre}`}>Mi Cuenta</Link></li>
+                        <li><Link className="dropdown-item" to={`/usuario/${user.nombre}`}>Mi Cuenta</Link></li>
                         <li><hr className="dropdown-divider" /></li>
                         <li><button className="dropdown-item" onClick={handleLogout}>Cerrar Sesión</button></li>
                       </ul>
                     </div>
                   :
-                    <Link className="nav-link" to="/Login">Inicia Sesión</Link>
+                    <Link className="nav-link" to="/Auth/Login">Inicia Sesión</Link>
                   }
                 </li>
               </ul>
@@ -114,7 +114,7 @@ function App() {
             <Route element={<ProtectedUser />}>
               <Route path='/CrearHamburguesa' element={<BurgerMaker />} />
               <Route path='/Cobro' element={<PaymentPage />} />
-              <Route path='/:username' element={<Userpage />} />
+              <Route path='/usuario/:username' element={<Userpage />} />
             </Route>
             <Route element={<ProtectedAdmin />}>
               <Route path='/Manage' element={<Adminpage />} />
