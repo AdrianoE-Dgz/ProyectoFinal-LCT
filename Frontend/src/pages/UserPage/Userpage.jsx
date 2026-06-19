@@ -2,38 +2,13 @@ import { useParams, Link, Outlet } from 'react-router-dom'
 import './Userpage.css'
 import { datosPedidosUser, datosUser } from '/src/httpRequests';
 import { useEffect, useState } from 'react';
+import { useDatosUsuario } from '/src/hooks/useDatosUsuario';
+import { useDatosPedidoUser } from '/src/hooks/useDatosPedidoUser';
 
 function Userpage() {
-  const [pedidos, setPedidos] = useState([]);
-  const [error, setError] = useState("");
-  const [usuario, setUsuario] = useState(null);
-  const [errorUser, setErrorUser] = useState("");
+  const { usuario, errorUser } = useDatosUsuario();
+  const { pedidos, error } = useDatosPedidoUser();
   const { username } = useParams(); 
-
-  useEffect(()=>{
-    cargarPedidos();
-    cargarUsuario();
-  }, []);
-
-  const cargarPedidos = async () => {
-    const resultado = await datosPedidosUser();
-    if(resultado.exito){
-      setPedidos(resultado.pedidos);
-    }
-    else{
-      setError(resultado.mensaje);
-    }
-  };
-
-  const cargarUsuario = async () => {
-    const resultadoUsuario = await datosUser();
-    if(resultadoUsuario.exito){
-      setUsuario(resultadoUsuario.usuario);
-    }
-    else{
-      setErrorUser(resultadoUsuario.mensaje);
-    }
-  };
   
   return (
     <section id="generalContainer">
