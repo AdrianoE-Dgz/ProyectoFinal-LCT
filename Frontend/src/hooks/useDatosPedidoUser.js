@@ -13,7 +13,13 @@ export function useDatosPedidoUser(){
         try{
             const resultado = await datosPedidosUser();
             if(resultado.exito){
-            setPedidos(resultado.pedidos);
+            const pedidoList = resultado.pedidos;
+            pedidoList.map((item) => {
+                const arrayContenido = item.contenido.split(',');
+                item.contenido = arrayContenido;
+            })
+
+            setPedidos(pedidoList);
             }
             else{
             setError(resultado.mensaje);

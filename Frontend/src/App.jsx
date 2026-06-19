@@ -81,7 +81,7 @@ function App() {
                 <li className="nav-item">
                   {user ?
                     <div className='dropdown w-100'>
-                      <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a className="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {user.nombre}
                       </a>
                       <ul className="dropdown-menu dropdown-menu-end">
@@ -91,7 +91,7 @@ function App() {
                       </ul>
                     </div>
                   :
-                    <Link className="nav-link" to="/Login">Inicia Sesión</Link>
+                    <Link className="nav-link" to="/Auth/Login">Inicia Sesión</Link>
                   }
                 </li>
               </ul>

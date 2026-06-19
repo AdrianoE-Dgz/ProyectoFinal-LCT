@@ -65,7 +65,7 @@ export async function makeOrder(contenido, fechaPedido, fechaEntrega, precio) {
   const body = {contenido: contenido, fechaPedido: fechaPedido, fechaEntrega: fechaEntrega, precio: precio};
 
   try {
-    const res = await fetch(`${API_URL}/api/usuarios/guardarPedido`, {
+    const res = await fetch(`${API_URL}/api/pedidos/guardarPedido`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,17 +77,11 @@ export async function makeOrder(contenido, fechaPedido, fechaEntrega, precio) {
     const data = await res.json()
 
     if (!res.ok) {
-      return {exito: false, mensaje: data.msg}
+      return {exito: false, mensaje: data.mensaje}
     }
 
-    // Guardar token
-    if (data.token) {
-      localStorage.setItem("token", data.token)
-    } else {
-      return {exito: false, mensaje: 'Error al ingresar usuario'};
-    }
+    return {exito: true, mensaje: data.mensaje};
 
-    return {exito: true, mensaje: 'Pedido Correcto'};
   } catch (error) {
     return {exito: false, mensaje: 'Error al conectar con el servidor'};
   }
