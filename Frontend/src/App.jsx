@@ -28,7 +28,6 @@ const ProtectedAdmin = lazy(() => import('/src/components/ProtectedAdminComponen
 
 // Custom Style Class
 const navLinkStyles = ({ isActive }) => ({
-  color: isActive ? 'blue' : 'black',
   textDecoration: 'none',
   fontWeight: isActive ? 'bold' : 'normal',
 });
@@ -42,7 +41,7 @@ function App() {
     if (loggedInUser) {
       setUser({nombre: localStorage.getItem('nombre'), rol: localStorage.getItem('rol')});
     }
-  }, []);
+  }, [setUser]);
 
   function handleLogout(){
     localStorage.removeItem("nombre");
