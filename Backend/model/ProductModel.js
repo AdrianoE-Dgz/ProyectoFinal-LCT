@@ -26,7 +26,7 @@ async function findProductByType(tipo){
 
 async function getAllProducts() {
     try {
-        const [rows] = await pool.query("SELECT * FROM productos")
+        const [rows] = await connection.query("SELECT * FROM productos")
         return rows;
     } catch (error) {
         console.error("Error al conectarse con al base de datos", error);

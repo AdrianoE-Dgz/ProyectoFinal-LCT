@@ -1,0 +1,10 @@
+.menuTarjeta {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 4%;
+}
+
+img {
+    width: 50%;
+    margin-left: 25%;
+}
