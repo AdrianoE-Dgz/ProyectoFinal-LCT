@@ -67,7 +67,7 @@ function BurgerMaker() {
   }, []);
 
   return (
-    <section id="generalContainer">
+    <section id='BurgerMakerCont' className="general-container">
       <div id='ticket' style={{backgroundImage: `url(${TickerImage})`}} className='text-center'>
         <div id='burger-cont' className='row'>
           <div className='col-12'>

@@ -34,7 +34,7 @@ function Payment() {
   }
 
   return (
-    <section id="generalContainer">
+    <section id='PaymentCont' className="general-container">
      <form onSubmit={realizarPedido}>
         <div className="mb-3">
           <label className="form-label">Dirección</label>

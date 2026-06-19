@@ -1,11 +1,11 @@
-#generalContainer {
-    min-height: 100vh;
-    padding: 6rem 2rem 2rem;
+#MenuCont {
+    padding: 6rem 2rem 5rem;
     background-color: #F8E7B5;
     text-align: center;
+    height: 100%;
 }
 
-#generalContainer h2 {
+#MenuCont h2 {
     color: #7A4A24;
     font-size: 3rem;
     font-weight: bold;

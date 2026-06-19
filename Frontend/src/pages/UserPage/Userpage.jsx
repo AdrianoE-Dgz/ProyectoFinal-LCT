@@ -1,13 +1,16 @@
-import './Userpage.css'
+import { lazy, Suspense } from 'react';
 import { useDatosUsuario } from '/src/hooks/useDatosUsuario';
 import { useDatosPedidoUser } from '/src/hooks/useDatosPedidoUser';
+import './Userpage.css'
+
+const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 
 function Userpage() {
   const { usuario, errorUser } = useDatosUsuario();
   const { pedidos, error } = useDatosPedidoUser();
   
   return (
-    <section id="generalContainer" className="container py-5">
+    <section id='UserPageCont' className="general-container container py-5">
       <div id="userCont" className="card shadow-lg border-0">
         <div className="card-body p-4">
 
@@ -17,7 +20,7 @@ function Userpage() {
 
           {usuario && (
             <div className="user-info card shadow mb-4">
-              <div className="card-body">
+              <div className="card-body d-flex text-center justify-content-around align-items-center">
                 <p>
                   <strong>Usuario:</strong>{' '}
                   <span className="badge bg-primary">
@@ -37,26 +40,22 @@ function Userpage() {
           )}
 
           {errorUser && (
-            <div className="alert alert-danger">
-              {errorUser}
-            </div>
+            <Notice mensaje={errorUser} color='danger' />
           )}
 
-          <h2 className="mb-3 text-success">
+          <h2 className="mb-3 text-primary">
             Mis Pedidos
           </h2>
 
           {error && (
-            <div className="alert alert-danger">
-              {error}
-            </div>
+            <Notice mensaje={error} color='danger' />
           )}
 
           <div className="table-responsive">
             <table className='table table-bordered table-striped rounded'>
               <thead className="table-primary">
                 <tr>
-                  <th>ID</th>
+                  <th id='idCol'>ID</th>
                   <th>Contenido</th>
                   <th>Fecha Pedido</th>
                   <th>Fecha Entrega</th>
@@ -98,7 +97,7 @@ function Userpage() {
                     </td>
 
                     <td className="fw-bold text-success">
-                      $${pedido.precio}
+                      ${pedido.precio}
                     </td>
                   </tr>
                 ))}

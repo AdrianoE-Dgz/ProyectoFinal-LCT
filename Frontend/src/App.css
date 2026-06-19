@@ -1,8 +1,10 @@
-#Loading, #generalContainer {
-  height: 100vh;
+@import-normalize;
+
+#Loading, .general-container {
+  min-height: 100vh;
 }
 
-#generalContainer {
+.general-container {
   padding-top: 4rem;
 }
 

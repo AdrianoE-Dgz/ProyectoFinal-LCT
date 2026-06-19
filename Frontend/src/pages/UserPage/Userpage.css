@@ -1,11 +1,9 @@
-#generalContainer{
-    overflow-y: auto;
-    min-height: 100vh;
+#UserPageCont {
+    overflow-y: none;
 }
 
 #userCont {
-    min-height: 103%;
-    height: auto;
+    min-height: 100vh;
     width: 90%;
 
     padding-top: 3%;
@@ -21,6 +19,7 @@
 th, td{
     font-size: 0.6rem;
     vertical-align: middle;
+    text-align: center;
 }
 
 th {

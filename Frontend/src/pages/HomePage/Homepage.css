@@ -1,6 +1,4 @@
-#generalContainer {
-  min-height: 100vh;
-
+#HomeCont {
   background-image:
     linear-gradient(
       rgba(36, 88, 122, 0.6),
@@ -12,7 +10,7 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  /* padding-top: 100px; */
+  padding-top: 100px;
 }
 
 .buttons-container{

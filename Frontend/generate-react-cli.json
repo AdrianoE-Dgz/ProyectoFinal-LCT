@@ -19,7 +19,7 @@
       "customDirectory": "TemplateNamePage",
       "customTemplates": {
         "component": "templates/page/TemplateName.jsx",
-        "style": "templates/TemplateName.css"
+        "style": "templates/page/TemplateName.css"
       },
       "withStory": false,
       "withLazy": false
