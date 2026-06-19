@@ -57,9 +57,35 @@ const getProductoByType = async (req, res) => {
   } 
 };
 
+const getPrecioTotal = async (req, res) => { 
+  try {
+    const { contenido } = req.body; 
+    const productos = await ProductosModel.getAllProducts();
+    if (!productos) 
+        return res.status(404).json({ mensaje: 'Error al obtener productos' }); 
+
+    let producto;
+    let precioTotal = 0;
+    for(const elementoId of contenido){
+      producto = productos.find(p => p.id === Number(elementoId));
+      if (!producto) 
+        return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
+      precioTotal += producto.precio;
+    }
+    precioTotal += productos.find(p => p.id === 1).precio;
+    precioTotal += productos.find(p => p.id === 2).precio;
+    
+    res.json({ precioTotal }); 
+  } catch (error) { 
+    console.error('Error al obtener producto:', error); 
+    res.status(500).json({ mensaje: 'Error al obtener producto' }); 
+  } 
+};
+
 module.exports = {
     getProductos,
     getProductoByNombre,
     getProductoById,
-    getProductoByType
+    getProductoByType,
+    getPrecioTotal
 }
