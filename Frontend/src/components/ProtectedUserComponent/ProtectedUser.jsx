@@ -28,7 +28,7 @@ const ProtectedUser = () => {
       { esUser ?
         <Outlet />
         :
-        <Navigate to="/login" />
+        <Navigate to="/Auth/Login" />
       }
     </>
   );

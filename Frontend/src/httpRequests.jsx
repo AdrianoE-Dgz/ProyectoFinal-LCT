@@ -47,12 +47,48 @@ export async function registUser(user) {
     const data = await res.json();
 
     if (!res.ok) {
+      console.log('RES IS *NOT* OK');
+      console.log(data);
       return  {exito: false, mensaje: data.msg};
     }
 
+    console.log('RES IS OK')
     return {exito: true, mensaje: 'Registro Correcto'};
+
   } catch (error) {
     console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}
+
+export async function makeOrder(contenido, fechaPedido, fechaEntrega, precio) {
+  const body = {contenido: contenido, fechaPedido: fechaPedido, fechaEntrega: fechaEntrega, precio: precio};
+
+  try {
+    const res = await fetch(`${API_URL}/api/usuarios/guardarPedido`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify(body)
+    })
+
+    const data = await res.json()
+
+    if (!res.ok) {
+      return {exito: false, mensaje: data.msg}
+    }
+
+    // Guardar token
+    if (data.token) {
+      localStorage.setItem("token", data.token)
+    } else {
+      return {exito: false, mensaje: 'Error al ingresar usuario'};
+    }
+
+    return {exito: true, mensaje: 'Pedido Correcto'};
+  } catch (error) {
     return {exito: false, mensaje: 'Error al conectar con el servidor'};
   }
 }

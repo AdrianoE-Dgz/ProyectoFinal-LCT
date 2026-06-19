@@ -28,7 +28,7 @@ function ProtectedAdmin() {
       { isAdministrador ?
         <Outlet />
         :
-        <Navigate to="/login" />
+        <Navigate to="/Auth/Login" />
       }
     </>
   );
