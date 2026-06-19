@@ -53,7 +53,7 @@ function Userpage() {
           )}
 
           <div className="table-responsive">
-            <table className="table table-info table-hover table-striped align-middle">
+            <table className='table table-bordered table-striped rounded'>
               <thead className="table-primary">
                 <tr>
                   <th>ID</th>
