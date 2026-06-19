@@ -1,11 +1,28 @@
+import { Link } from 'react-router-dom'
 import './Homepage.css'
 
-function Homepage() {
-  // const [count, setCount] = useState(0)
+import logo from '/src/assets/images/logo.jpg'
+import fondo from '/src/assets/images/fondo.jpg'
 
+function Homepage() {
   return (
-    <section id="generalContainer">
-      <p>Homepage works!</p>
+    <section
+      id="generalContainer"
+      className="d-flex flex-column justify-content-start align-items-center"
+      style={{
+        '--background-image': `url(${fondo})`
+      }}
+    >
+      <img
+        src={logo}
+        className="homepage-logo mb-4"
+        alt="Logo"
+      />
+
+      <div className="buttons-container">
+        <Link to="/CrearHamburguesa" className="btn creation-btn"> Crear Hamburguesa </Link>
+        <Link to="/Menu" className="btn menu-btn"> Vea nuestro menu </Link>
+      </div>
     </section>
   )
 }
