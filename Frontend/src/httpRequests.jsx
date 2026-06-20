@@ -259,3 +259,58 @@ export async function datosPedidosPorId(id) {
     return {exito: false, mensaje: 'Error al conectar con el servidor'};
   }
 }
+
+export async function actualizarFechaPedido(id, fechaEntrega, direccion) {
+  const body = {fechaEntrega: fechaEntrega, direccion: direccion};
+  try {
+    const res = await fetch(`${API_URL}/api/pedidos/actualizarPedido/${Number(id)}`, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: data.msg};
+    }
+
+    const mensaje = data.mensaje;
+    console.log(mensaje);
+
+    return {exito: true, mensaje: mensaje};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}
+
+export async function borrarPedido(id) {
+  try {
+    const res = await fetch(`${API_URL}/api/pedidos/borrarPedido/${Number(id)}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: data.msg};
+    }
+
+    const mensaje = data.mensaje;
+    console.log(mensaje);
+
+    return {exito: true, mensaje: mensaje};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}

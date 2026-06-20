@@ -3,6 +3,7 @@ import { useEffect, useContext, useRef, lazy, useState } from 'react'
 import { Context } from "/src/Context.jsx";
 import { makeOrder, datosProductos } from '/src/httpRequests';
 import './Payment.css'
+import { Suspense } from 'react';
 
 const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 
@@ -17,15 +18,15 @@ function Payment() {
   useEffect(() => {
     const orden = localStorage.getItem('orden');
     if(!orden){
-      setBurger([]);
       return;
     }
 
-    if(!burger || burger.length === 0) return;
+    if(!Array.isArray(burger) || !burger || burger.length === 0) return;
 
     const getContenido = async () => {
       const data = await datosProductos();
 
+      if (!data?.productos) return;
       console.log(data.productos);
 
       const listaProductos=burger.map(id => 
@@ -49,8 +50,7 @@ function Payment() {
       .then(respuesta => respuesta.json())
       .then(data => {
         if(!data || data <= 0){
-          setPrecio(null);
-          setBurger([]);
+          setPrecio(0);
           return;
         }
         setPrecio(data);
@@ -58,19 +58,13 @@ function Payment() {
       })
       .catch(error => console.error(error))
       .finally(() => console.log("Fetch listo"));
-  }, [burger, setBurger]);
+  }, [burger]);
 
   const realizarPedido = async (e) => {
     e.preventDefault();
-    if(!burger || !precio) return;
-    let stringBurger = '';
-
-    burger.map((value, index) => {
-      console.log(index,": ", value);
-      stringBurger += `${value},`
-    })
-
-    stringBurger = stringBurger.slice(0, -1);
+    if(!burger || burger.length===0 || !precio || precio===0) return;
+    
+    const stringBurger = burger.join(',');
 
     const hoy = new Date();
     const entrega = fechaRef.current.value;
@@ -79,9 +73,6 @@ function Payment() {
     const data = await makeOrder(stringBurger, hoy, entrega, direccion, precio);
 
     console.log(data);
-    if(data.exito){
-      setBurger([]);
-    }
   }
 
   const goBurgerMaker = () => {
@@ -90,7 +81,7 @@ function Payment() {
 
   return (
     <section id='PaymentCont' className="general-container">
-    { burger ?
+    {burger?.length>0 ?
       <div id="paymentForm" className='card'>
         <div>
           <h1 className='text-primary'>Para terminar tu pedido</h1>
@@ -123,7 +114,7 @@ function Payment() {
     :
       <>
         <Notice mensaje="No se pudo procesar el pago, intente realizar su pedido nuevamente" color="danger" />
-        <a href='' className='btn btn-primary text-center' onClick={goBurgerMaker}>Regresar a realizar Hamburguesa</a>
+        <button className="btn btn-primary text-center" onClick={goBurgerMaker}>Regresar a realizar Hamburguesa</button>
       </>
     }
     </section>

@@ -43,8 +43,8 @@ function Admin() {
             Lista de Pedidos
           </h2>
 
-          <div>
-            <input type="number" className='input-busqueda' placeholder='Busca un ID' value={inputId} onChange={(e) => setInputId(e.target.value)} />
+          <div className="d-flex gap-2 flex-wrap mb-4">
+            <input type="number" className='form-control input-busqueda' placeholder='Busca un ID' value={inputId} onChange={(e) => setInputId(e.target.value)} />
             <button className='btn btn-primary' onClick={busqueda}>Buscar</button>
           </div>
 
