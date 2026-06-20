@@ -9,7 +9,7 @@ const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 function Payment() {
   const navigate = useNavigate();
   const [ precio, setPrecio ] = useState(1);
-  const { burgerList, setBurgerList } = useState([]);
+  const [ burgerList, setBurgerList ] = useState([]);
   const { burger, setBurger } = useContext(Context);
   const direccionRef = useRef('');
   const fechaRef = useRef('');
@@ -20,7 +20,21 @@ function Payment() {
       setBurger([]);
       return;
     }
+
     if(!burger || burger.length === 0) return;
+
+    const getContenido = async () => {
+      const data = await datosProductos();
+
+      console.log(data.productos);
+
+      const listaProductos=burger.map(id => 
+        data.productos.find(prod => prod.id === Number(id))
+      ).filter(Boolean);
+
+      setBurgerList(listaProductos);
+    };
+    getContenido();
 
     fetch(`http://localhost:3000/api/productos/obtenerPrecioPedido`, {
       method: "POST",
@@ -82,9 +96,9 @@ function Payment() {
           <h1 className='text-primary'>Para terminar tu pedido</h1>
           <p className='font-dokyo'>Contenido de su pedido: </p>
           {
-            burgerList ?
+            burgerList.length>0 ?
               burgerList.map((prod, index) => (
-                <li key={index}>{prod}</li>
+                <li key={index}>{prod.nombre}</li>
               ))
             :
               <p>Cargando...</p>
