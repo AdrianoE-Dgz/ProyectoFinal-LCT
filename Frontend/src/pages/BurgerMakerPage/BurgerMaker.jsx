@@ -23,7 +23,6 @@ function BurgerMaker() {
     if(vector.length === 0){
       console.error('Hamburguesa vacia')
     } else {
-      localStorage.setItem('orden', vector);
       setBurger(vector);
       navigate('/cobro');
     }
