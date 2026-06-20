@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from 'react';
 import { useDatosUsuario } from '/src/hooks/useDatosUsuario';
 import { useDatosPedidoUser } from '/src/hooks/useDatosPedidoUser';
-import { actualizarFechaPedido, borrarPedido } from '/src/httpRequests';
+import { actualizarFechaPedido, borrarPedido, datosProductos } from '/src/httpRequests';
 import './Userpage.css'
 import { useEffect } from 'react';
 
@@ -16,28 +16,25 @@ function Userpage() {
   const [mensajeExito, setMensajeExito] = useState(null);
   const [errorCambio, setMensajeError] = useState(null);
   const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
+  const [productosMostrar, setProductosMostrar] = useState([]);
 
   useEffect(()=>{
     setListaPedidos(pedidos || []);
   }, [pedidos]);
+
+  useEffect(()=>{
+    async function cargarProductos() {
+      const data = await datosProductos();
+      setProductosMostrar(data.productos);
+    }
+    cargarProductos();
+  }, []);
 
   function modificarPedido(pedido) {
     setPedidoSeleccionado({
       ...pedido
     });
   }
-
-  const getContenido = async () => {
-    const data = await datosProductos();
-
-    console.log(data.productos);
-
-    const listaProductos=burger.map(id => 
-      data.productos.find(prod => prod.id === Number(id))
-    ).filter(Boolean);
-
-    setBurgerList(listaProductos);
-  };
 
   async function eliminarPedido(pedido) {
     try{
@@ -157,11 +154,16 @@ function Userpage() {
 
                     <td>
                       <ul>
-                        {pedido.contenido?.map((currentValue, index) => (
-                          <li key={index}>
-                            {currentValue}
-                          </li>
-                        ))}
+                        {pedido.contenido?.map((currentValue, index) => {
+                          const prod = productosMostrar.find(
+                            p=>p.id===Number(currentValue)
+                          );
+                          return(
+                            <li key={index}>
+                              {prod?.nombre || currentValue}
+                            </li>
+                          );
+                        })}
                       </ul>
                     </td>
 
