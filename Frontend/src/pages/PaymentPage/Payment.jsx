@@ -9,27 +9,31 @@ const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 function Payment() {
   const navigate = useNavigate();
   const [ precio, setPrecio ] = useState(1);
-  const { burgerList, setBurgerList } = useState([]);
+  const [ burgerList, setBurgerList ] = useState([]);
   const { burger, setBurger } = useContext(Context);
   const direccionRef = useRef('');
   const fechaRef = useRef('');
 
   useEffect(() => {
+    const orden = localStorage.getItem('orden');
+    if(!orden){
+      setBurger([]);
+      return;
+    }
+
+    if(!burger || burger.length === 0) return;
+
     const getContenido = async () => {
       const data = await datosProductos();
 
       console.log(data.productos);
 
-      burger.map((id) => {
-        const valor = data.productos.find((prod) => ( prod.id === Number(id)));
+      const listaProductos=burger.map(id => 
+        data.productos.find(prod => prod.id === Number(id))
+      ).filter(Boolean);
 
-        if(valor){
-          setBurgerList(oldList => [...oldList, valor]);
-        }
-      });
-
-      console.log("BurgerList", burgerList);
-    }
+      setBurgerList(listaProductos);
+    };
     getContenido();
 
     fetch(`http://localhost:3000/api/productos/obtenerPrecioPedido`, {
@@ -54,10 +58,7 @@ function Payment() {
       })
       .catch(error => console.error(error))
       .finally(() => console.log("Fetch listo"));
-
-    if(!burger || burger.length === 0) return;
-
-  }, []);
+  }, [burger, setBurger]);
 
   const realizarPedido = async (e) => {
     e.preventDefault();
@@ -95,9 +96,9 @@ function Payment() {
           <h1 className='text-primary'>Para terminar tu pedido</h1>
           <p className='font-dokyo'>Contenido de su pedido: </p>
           {
-            burgerList ?
+            burgerList.length>0 ?
               burgerList.map((prod, index) => (
-                <li key={index}>{prod}</li>
+                <li key={index}>{prod.nombre}</li>
               ))
             :
               <p>Cargando...</p>
