@@ -9,11 +9,8 @@ const authRoutes = require('./routes/auth.routes.js');
 const pool = require('./db/conexion.js'); // <-- Importamos la conexión
 const app = express();
 const PORT = 3000;
-app.use(cors({
-    origin: 'http://localhost:5173/', // tu frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
+app.use(cors());
+
 app.use(express.json());
 
 // Ruta base

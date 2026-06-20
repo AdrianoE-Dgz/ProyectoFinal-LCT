@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { HashRouter, BrowserRouter } from 'react-router-dom'
+import { HashRouter as BrowserRouter } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'

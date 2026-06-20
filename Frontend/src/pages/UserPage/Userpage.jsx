@@ -11,6 +11,7 @@ function Userpage() {
   const { usuario, errorUser } = useDatosUsuario();
   const { pedidos, error } = useDatosPedidoUser();
   
+  const [ burgerList, setBurgerList ] = useState([]);
   const [ listaPedidos, setListaPedidos]=useState([]);
   const [mensajeExito, setMensajeExito] = useState(null);
   const [errorCambio, setMensajeError] = useState(null);
@@ -25,6 +26,18 @@ function Userpage() {
       ...pedido
     });
   }
+
+  const getContenido = async () => {
+    const data = await datosProductos();
+
+    console.log(data.productos);
+
+    const listaProductos=burger.map(id => 
+      data.productos.find(prod => prod.id === Number(id))
+    ).filter(Boolean);
+
+    setBurgerList(listaProductos);
+  };
 
   async function eliminarPedido(pedido) {
     try{
@@ -48,25 +61,25 @@ function Userpage() {
   }
 
   async function guardarCambios() {
-    try{
-      console.log(pedidoSeleccionado);
-      const resultado = await actualizarFechaPedido(pedidoSeleccionado.id, pedidoSeleccionado.fechaEntrega, pedidoSeleccionado.direccion);
-      if(resultado.exito){
-        setMensajeExito(resultado.mensaje);
-        setMensajeError(null);
+        try{
+            console.log(pedidoSeleccionado);
+            const resultado = await actualizarFechaPedido(pedidoSeleccionado.id, pedidoSeleccionado.fechaEntrega, pedidoSeleccionado.direccion);
+            if(resultado.exito){
+              setMensajeExito(resultado.mensaje);
+              setMensajeError(null);
 
-        setListaPedidos(prev => prev.map(p => p.id === pedidoSeleccionado.id ? { ...p, ...pedidoSeleccionado} : p));
-      }
-      else{
-        setMensajeError("No se pudieron editar los datos");
-        setMensajeExito(null);
-      }
-    }catch(error){
-      setMensajeError("No se pudieron editar los datos");
-      setMensajeExito(null);
-    }finally{
-      setPedidoSeleccionado(null);
-    }
+              setListaPedidos(prev => prev.map(p => p.id === pedidoSeleccionado.id ? { ...p, ...pedidoSeleccionado} : p));
+            }
+            else{
+              setMensajeError("No se pudieron editar los datos");
+              setMensajeExito(null);
+            }
+        }catch(error){
+            setMensajeError("No se pudieron editar los datos");
+            setMensajeExito(null);
+        }finally{
+            setPedidoSeleccionado(null);
+        }
   }
 
   return (

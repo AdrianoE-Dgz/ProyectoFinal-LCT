@@ -1,4 +1,5 @@
-const API_URL = 'https://proyectofinal-lct.onrender.com'
+// const API_URL = 'https://proyectofinal-lct.onrender.com'
+const API_URL = 'http://localhost:3000'
 
 export async function logUser(username, password) {
   const body = {user: username, password: password};

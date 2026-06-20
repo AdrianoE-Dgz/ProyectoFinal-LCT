@@ -41,6 +41,7 @@ async function insertPedido(usuarios_id, contenido, fechaPedido, fechaEntrega, d
         'INSERT INTO pedido (usuarios_id, contenido, fechaPedido, fechaEntrega, direccion, precio) VALUES (?, ?, ?, ?, ?, ?)',
         [usuarios_id, contenido, fechaPedido, fechaEntrega, direccion, precio]
     );
+    console.log(result);
     return result.insertId;
 }
 

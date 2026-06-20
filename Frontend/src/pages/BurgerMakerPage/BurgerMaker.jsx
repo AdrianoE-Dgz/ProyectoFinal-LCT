@@ -18,16 +18,14 @@ function BurgerMaker() {
   const navigate = useNavigate();
 
   const GuardarBurger = () => {
-    // const vector = obtenerIngredientes();
+    const vector = obtenerIngredientes();
 
-    // if(vector.length === 0){
-    //   console.error('Hamburguesa vacia')
-    // } else {
-    //   setBurger(vector);
-    //   navigate('/cobro');
-    // }
-
-    navigate('/cobro');
+    if(vector.length === 0){
+      console.error('Hamburguesa vacia')
+    } else {
+      setBurger(vector);
+      navigate('/cobro');
+    }
   }
 
   const obtenerIngredientes = () => {
@@ -69,8 +67,7 @@ function BurgerMaker() {
   }, []);
 
   return (
-    <section id='BurgerMakerCont' className="general-container d-flex flex-column align-items-center">
-      <h1 className='text-center mb-4'>Crea tu Hamburguesa</h1>
+    <section id='BurgerMakerCont' className="general-container">
       <div id='ticket' style={{backgroundImage: `url(${TickerImage})`}} className='text-center'>
         <div id='burger-cont' className='row'>
           <div className='col-12'>
@@ -78,9 +75,10 @@ function BurgerMaker() {
           </div>
           {toppingCarousel.map((id) => (
             <div className='col-12' key={id}>
-              <ToppingsCarousel
-                number={id}
-              />
+            <ToppingsCarousel
+              key={id}
+              number={id}
+            />
             </div>
           ))}
           <div className='col-12'>
@@ -88,7 +86,7 @@ function BurgerMaker() {
           </div>
         </div>
       </div>
-      <button className='btn btn-primary mt-4' onClick={GuardarBurger}>ordenar</button>
+      <button className='btn btn-primary' onClick={GuardarBurger}>ordenar</button>
     </section>
   )
 }
