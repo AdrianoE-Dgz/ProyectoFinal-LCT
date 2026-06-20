@@ -36,7 +36,7 @@ function Payment() {
     };
     getContenido();
 
-    fetch(`http://localhost:3000/api/productos/obtenerPrecioPedido`, {
+    fetch(`https://proyectofinal-lct.onrender.com/api/productos/obtenerPrecioPedido`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem('token')}`,
