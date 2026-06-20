@@ -91,3 +91,8 @@ h2 {
 .alert {
     border-radius: 10px;
 }
+
+.acciones-col {
+    width: 180px;
+    text-align: center;
+}
