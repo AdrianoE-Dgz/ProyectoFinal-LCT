@@ -86,7 +86,7 @@ function BurgerMaker() {
           </div>
         </div>
       </div>
-      <button className='btn btn-primary' onClick={GuardarBurger}>ordenar</button>
+      <button className='btn btn-primary' onClick={GuardarBurger}>Ordenar</button>
     </section>
   )
 }
