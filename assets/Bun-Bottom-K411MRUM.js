@@ -1,1 +1,0 @@
-var e=`/ProyectoFinal-LCT/assets/Bun-Top-CoZciMF2.svg`,t=`/ProyectoFinal-LCT/assets/Bun-Bottom-7FjEpL2O.svg`;export{e as n,t};

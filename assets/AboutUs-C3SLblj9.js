@@ -1,1 +1,0 @@
-import{n as e}from"./index-Cch-QwTQ.js";var t=e();function n(){return(0,t.jsx)(`section`,{id:`AboutUsCont`,className:`general-container`,children:(0,t.jsx)(`p`,{children:`AboutUs Works!`})})}export{n as default};
