@@ -42,7 +42,7 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id`, `usuarios_id`, `contenido`, `fechaPedido`, `fechaEntrega`, `direccion`, `precio`) VALUES
-(1, 2, 'carne,carne,carne,carne,carne,carne,carne', '0000-00-00', '0000-00-00', '', 999);
+(1, 2, 'carne,carne,carne,carne,carne,carne,carne', '2026-08-03', '2026-08-03', '', 999);
 
 -- --------------------------------------------------------
 
