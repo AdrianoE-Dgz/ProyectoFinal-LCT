@@ -11,7 +11,7 @@ const app = express();
 const PORT = 3000;
 app.use(cors(
 {
-    origin: ['http://localhost:5173', 'https://adrianoe-dgz.github.io/ProyectoFinal-LCT'], // tu frontend
+    origin: ['http://localhost:5173', 'https://adrianoe-dgz.github.io'], // tu frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
