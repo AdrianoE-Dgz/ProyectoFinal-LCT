@@ -75,14 +75,14 @@ function BurgerMaker() {
           <div className='col-12'>
             <img id='bun-top' src={BunTopImage} />
           </div>
-          {toppingCarousel.map((id) =>
-            <div className='col-12'>
+          {toppingCarousel.map((id) => (
+            <div className='col-12' key={id}>
             <ToppingsCarousel
               key={id}
               number={id}
             />
             </div>
-          )}
+          ))}
           <div className='col-12'>
             <img id='bun-bottom' src={BunBottomImage} />
           </div>

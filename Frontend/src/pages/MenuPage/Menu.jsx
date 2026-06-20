@@ -1,7 +1,9 @@
+import { lazy } from 'react';
 import { Link, Outlet } from 'react-router-dom'
-import './Menu.css'
 import { useDatosProductos } from '/src/hooks/useDatosProductos';
-import TarjetaMenu from '/src/components/tarjetaMenu/tarjetaMenu';
+import './Menu.css'
+
+const TarjetaMenu = lazy(() => import('/src/components/tarjetaMenu/tarjetaMenu'));
 
 function Menu() {
   const { productos, error } = useDatosProductos();

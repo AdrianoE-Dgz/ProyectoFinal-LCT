@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useContext, useRef } from 'react'
+import { useEffect, useContext, useRef, lazy, useState } from 'react'
 import { Context } from "/src/Context.jsx";
 import { makeOrder } from '/src/httpRequests';
 import './Payment.css'
@@ -8,14 +8,29 @@ const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 
 function Payment() {
   const navigate = useNavigate();
+  const [ precio, setPrecio ] = useState(null);
   const { burger, setBurger } = useContext(Context);
   const direccionRef = new useRef('');
   const fechaRef = new useRef('');
 
   useEffect(() => {
     const orden = localStorage.getItem('orden') || null;
-    if(!orden) {
+    fetch(`http//:localhost:3000/api/productos/obtenerPrecioPedido`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      },
+      body: {
+        contenido: burger
+      }
+    })
+      .then((respuesta) => (setPrecio(respuesta)))
+      .finally(console.log(precio))
+      .catch((error) => console.error(error));
 
+    if(!orden || !precio) {
+      setBurger(null);
+      return;
     }
   }, []);
 
