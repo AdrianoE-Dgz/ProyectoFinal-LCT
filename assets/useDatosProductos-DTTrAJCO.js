@@ -1,0 +1,1 @@
+import{d as e,p as t}from"./index-C1ie31qe.js";import{i as n}from"./httpRequests-06UMUkM4.js";var r=t(e(),1);function i(){let[e,t]=(0,r.useState)([]),[i,a]=(0,r.useState)(``);(0,r.useEffect)(()=>{o()},[]);let o=async()=>{try{let e=await n();e.exito?t(e.productos):a(e.mensaje)}catch{a(`No se pudieron cargar los pedidos`)}};return{productos:e,error:i}}export{i as t};
