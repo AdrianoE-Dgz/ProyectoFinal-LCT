@@ -68,7 +68,8 @@ function BurgerMaker() {
   }, []);
 
   return (
-    <section id='BurgerMakerCont' className="general-container">
+    <section id='BurgerMakerCont' className="general-container d-flex flex-column align-items-center">
+      <h1 className='text-center mb-4'>Crea tu Hamburguesa</h1>
       <div id='ticket' style={{backgroundImage: `url(${TickerImage})`}} className='text-center'>
         <div id='burger-cont' className='row'>
           <div className='col-12'>
@@ -87,7 +88,7 @@ function BurgerMaker() {
           </div>
         </div>
       </div>
-      <button className='btn btn-primary' onClick={GuardarBurger}>ordenar</button>
+      <button className='btn btn-primary mt-4' onClick={GuardarBurger}>ordenar</button>
     </section>
   )
 }
