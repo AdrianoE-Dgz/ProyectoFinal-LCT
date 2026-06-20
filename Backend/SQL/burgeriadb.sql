@@ -88,7 +88,7 @@ INSERT INTO `productos` (`id`, `tipo`, `nombre`, `imagen`, `descripcion`, `preci
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4,
   `user` varchar(12) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `email` varchar(45) DEFAULT NULL,
