@@ -1,3 +1,22 @@
 #PaymentCont {
-    
+    height: 100%;
+    background-color: steelblue;
+    display: flex;
+    justify-content: end;
+}
+
+#paymentForm {
+    margin-top: -4rem;
+    padding-top: 4rem;
+    height: 100vh;
+    width: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#paymentForm > form {
+    padding: 4rem;
+    width: 75%;
 }
