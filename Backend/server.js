@@ -9,14 +9,11 @@ const authRoutes = require('./routes/auth.routes.js');
 const pool = require('./db/conexion.js'); // <-- Importamos la conexión
 const app = express();
 const PORT = 3000;
-app.use(cors({
-    origin: 'http://localhost:5173/', // tu frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-},
+app.use(cors(
 {
-    origin: 'https://adrianoe-dgz.github.io/ProyectoFinal-LCT/', // tu frontend
+    origin: ['http://localhost:5173/', 'https://adrianoe-dgz.github.io/ProyectoFinal-LCT/'], // tu frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
 app.use(express.json());
