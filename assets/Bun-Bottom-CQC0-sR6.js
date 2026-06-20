@@ -1,1 +1,0 @@
-var e=`/assets/Bun-Top-CoZciMF2.svg`,t=`/assets/Bun-Bottom-7FjEpL2O.svg`;export{e as n,t};
