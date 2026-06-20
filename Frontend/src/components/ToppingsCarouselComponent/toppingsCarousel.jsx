@@ -13,8 +13,8 @@ function ToppingsCarousel(props) {
           </div>
           {
             productos.filter((producto) => (!(producto.tipo === 1)&&!(producto.tipo === 2))).map((producto) => (
-              <div className="carousel-item">
-                <img src={`/src/assets/images/${producto.imagen}`} className='toppingImage' value={producto.id} />
+              <div className="carousel-item" key={producto.id}>
+                <img src={`/src/assets/images/${producto.imagen}`} className='toppingImage' alt={producto.nombre} value={producto.id} />
               </div>
             ))
           }

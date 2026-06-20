@@ -18,14 +18,16 @@ function BurgerMaker() {
   const navigate = useNavigate();
 
   const GuardarBurger = () => {
-    const vector = obtenerIngredientes();
+    // const vector = obtenerIngredientes();
 
-    if(vector.length === 0){
-      console.error('Hamburguesa vacia')
-    } else {
-      setBurger(vector);
-      navigate('/cobro');
-    }
+    // if(vector.length === 0){
+    //   console.error('Hamburguesa vacia')
+    // } else {
+    //   setBurger(vector);
+    //   navigate('/cobro');
+    // }
+
+    navigate('/cobro');
   }
 
   const obtenerIngredientes = () => {
@@ -76,10 +78,9 @@ function BurgerMaker() {
           </div>
           {toppingCarousel.map((id) => (
             <div className='col-12' key={id}>
-            <ToppingsCarousel
-              key={id}
-              number={id}
-            />
+              <ToppingsCarousel
+                number={id}
+              />
             </div>
           ))}
           <div className='col-12'>

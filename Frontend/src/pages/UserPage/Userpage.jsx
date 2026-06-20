@@ -48,25 +48,25 @@ function Userpage() {
   }
 
   async function guardarCambios() {
-        try{
-            console.log(pedidoSeleccionado);
-            const resultado = await actualizarFechaPedido(pedidoSeleccionado.id, pedidoSeleccionado.fechaEntrega, pedidoSeleccionado.direccion);
-            if(resultado.exito){
-              setMensajeExito(resultado.mensaje);
-              setMensajeError(null);
+    try{
+      console.log(pedidoSeleccionado);
+      const resultado = await actualizarFechaPedido(pedidoSeleccionado.id, pedidoSeleccionado.fechaEntrega, pedidoSeleccionado.direccion);
+      if(resultado.exito){
+        setMensajeExito(resultado.mensaje);
+        setMensajeError(null);
 
-              setListaPedidos(prev => prev.map(p => p.id === pedidoSeleccionado.id ? { ...p, ...pedidoSeleccionado} : p));
-            }
-            else{
-              setMensajeError("No se pudieron editar los datos");
-              setMensajeExito(null);
-            }
-        }catch(error){
-            setMensajeError("No se pudieron editar los datos");
-            setMensajeExito(null);
-        }finally{
-            setPedidoSeleccionado(null);
-        }
+        setListaPedidos(prev => prev.map(p => p.id === pedidoSeleccionado.id ? { ...p, ...pedidoSeleccionado} : p));
+      }
+      else{
+        setMensajeError("No se pudieron editar los datos");
+        setMensajeExito(null);
+      }
+    }catch(error){
+      setMensajeError("No se pudieron editar los datos");
+      setMensajeExito(null);
+    }finally{
+      setPedidoSeleccionado(null);
+    }
   }
 
   return (
