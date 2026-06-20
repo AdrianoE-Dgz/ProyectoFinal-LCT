@@ -1,0 +1,1 @@
+import{n as e}from"./index-Cch-QwTQ.js";var t=e();function n({imagen:e,children:n}){return(0,t.jsx)(t.Fragment,{children:(0,t.jsxs)(`div`,{className:`menuTarjeta`,children:[(0,t.jsx)(`img`,{src:e,alt:`Imagen`}),n]})})}export{n as default};
