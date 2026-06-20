@@ -4,7 +4,7 @@ function TarjetaMenu({ imagen, children }) {
   return (
     <>
       <div className='menuTarjeta'>
-        <img src={`/src/assets/images/${imagen}`} alt="Imagen" />
+        <img src={imagen} alt="Imagen" />
         { children }
       </div>
     </>

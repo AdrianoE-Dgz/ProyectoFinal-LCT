@@ -7,7 +7,6 @@ import TickerImage from '/src/assets/images/Ticket.svg'
 import BunTopImage from '/src/assets/images/Bun-Top.svg'
 import BunBottomImage from '/src/assets/images/Bun-Bottom.svg'
 
-
 const ToppingsCarousel = lazy(() =>
   import('/src/components/ToppingsCarouselComponent/ToppingsCarousel.jsx')
 );
