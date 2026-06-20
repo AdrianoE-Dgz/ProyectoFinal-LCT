@@ -61,7 +61,7 @@ export async function registUser(user) {
   }
 }
 
-export async function makeOrder(contenido, fechaPedido, fechaEntrega, precio, direccion) {
+export async function makeOrder(contenido, fechaPedido, fechaEntrega, direccion, precio) {
   const body = {contenido: contenido, fechaPedido: fechaPedido, fechaEntrega: fechaEntrega, direccion: direccion ,precio: precio};
 
   try {

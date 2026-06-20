@@ -50,15 +50,15 @@ const getPedidoByUser = async (req, res) => {
 const postPedido = async (req, res) => { 
   try {
     const usuarios_id = req.user.id;
-    const { contenido, fechaPedido, fechaEntrega, precio, direccion } = req.body; 
+    const { contenido, fechaPedido, fechaEntrega, direccion, precio } = req.body; 
 
     if (!usuarios_id || !contenido || !fechaPedido || !fechaEntrega || !precio || !direccion ){
-      console.log(usuarios_id, contenido, fechaPedido, fechaEntrega, precio);
+      console.log(usuarios_id, contenido, fechaPedido, fechaEntrega, direccion, precio);
       return res.status(400).json({ mensaje: 'Faltan datos obligatorios' });
     }
  
     console.log("1"); 
-    const id_insertado = await PedidosModel.insertPedido(usuarios_id, contenido, fechaPedido, fechaEntrega, precio); 
+    const id_insertado = await PedidosModel.insertPedido(usuarios_id, contenido, fechaPedido, fechaEntrega, direccion, precio); 
     res.status(201).json({ mensaje: 'Pedido agregado', id_insertado }); 
     
     console.log("2");

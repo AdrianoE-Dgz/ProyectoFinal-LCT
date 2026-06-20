@@ -60,6 +60,7 @@ const getProductoByType = async (req, res) => {
 const getPrecioTotal = async (req, res) => { 
   try {
     const { contenido } = req.body; 
+    console.log(contenido);
     const productos = await ProductosModel.getAllProducts();
     if (!productos) 
         return res.status(404).json({ mensaje: 'Error al obtener productos' }); 
@@ -70,10 +71,11 @@ const getPrecioTotal = async (req, res) => {
       producto = productos.find(p => p.id === Number(elementoId));
       if (!producto) 
         return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
-      precioTotal += producto.precio;
+      precioTotal += Number(producto.precio);
     }
-    precioTotal += productos.find(p => p.id === 1).precio;
-    precioTotal += productos.find(p => p.id === 2).precio;
+    precioTotal += Number(productos.find(p => p.id === 1).precio);
+    precioTotal += Number(productos.find(p => p.id === 2).precio);
+    console.log(precioTotal);
     
     res.json(precioTotal); 
   } catch (error) { 

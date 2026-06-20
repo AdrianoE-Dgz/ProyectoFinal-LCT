@@ -10,32 +10,44 @@ function Payment() {
   const navigate = useNavigate();
   const [ precio, setPrecio ] = useState(null);
   const { burger, setBurger } = useContext(Context);
-  const direccionRef = new useRef('');
-  const fechaRef = new useRef('');
+  const direccionRef = useRef('');
+  const fechaRef = useRef('');
 
   useEffect(() => {
-    const orden = localStorage.getItem('orden') || null;
-    fetch(`http//:localhost:3000/api/productos/obtenerPrecioPedido`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem('token')}`
-      },
-      body: {
-        contenido: burger
-      }
-    })
-      .then((respuesta) => (setPrecio(respuesta)))
-      .finally(console.log(precio))
-      .catch((error) => console.error(error));
-
-    if(!orden || !precio) {
-      setBurger(null);
+    const orden = localStorage.getItem('orden');
+    if(!orden){
+      setBurger([]);
       return;
     }
-  }, []);
+    if(!burger || burger.length === 0) return;
+
+    fetch(`http://localhost:3000/api/productos/obtenerPrecioPedido`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        contenido: burger
+      })
+    })
+      .then(respuesta => respuesta.json())
+      .then(data => {
+        if(!data || data <= 0){
+          setPrecio(null);
+          setBurger([]);
+          return;
+        }
+        setPrecio(data);
+        console.log(data);
+      })
+      .catch(error => console.error(error))
+      .finally(() => console.log("Fetch listo"));
+  }, [burger, setBurger]);
 
   const realizarPedido = async (e) => {
     e.preventDefault();
+    if(!burger || !precio) return;
     let stringBurger = '';
 
     burger.map((value, index) => {
@@ -49,11 +61,11 @@ function Payment() {
     const entrega = fechaRef.current.value;
     const direccion = direccionRef.current.value;
 
-    const data = await makeOrder(stringBurger, hoy, entrega, 999, direccion);
+    const data = await makeOrder(stringBurger, hoy, entrega, direccion, precio);
 
     console.log(data);
     if(data.exito){
-      setBurger(null);
+      setBurger([]);
     }
   }
 
