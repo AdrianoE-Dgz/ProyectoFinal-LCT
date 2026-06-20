@@ -61,7 +61,7 @@ export async function registUser(user) {
   }
 }
 
-export async function makeOrder(contenido, fechaPedido, fechaEntrega, precio, direccion) {
+export async function makeOrder(contenido, fechaPedido, fechaEntrega, direccion, precio) {
   const body = {contenido: contenido, fechaPedido: fechaPedido, fechaEntrega: fechaEntrega, direccion: direccion ,precio: precio};
 
   try {
@@ -202,6 +202,58 @@ export async function datosProductos() {
     console.log(productos);
 
     return {exito: true, productos: productos};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}
+
+export async function datosAllPedidos() {
+  try {
+    const res = await fetch(`${API_URL}/api/pedidos/obtenerPedidos`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: data.msg};
+    }
+
+    const pedidos = data;
+    console.log(pedidos);
+
+    return {exito: true, pedidos: pedidos};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}
+
+export async function datosPedidosPorId(id) {
+  try {
+    const res = await fetch(`${API_URL}/api/pedidos/obtenerPedidoId/${Number(id)}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: data.msg};
+    }
+
+    const pedido = data;
+    console.log(pedido);
+
+    return {exito: true, pedido: pedido};
   } catch (error) {
     console.error( error );
     return {exito: false, mensaje: 'Error al conectar con el servidor'};

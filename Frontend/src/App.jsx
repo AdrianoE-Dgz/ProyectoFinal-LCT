@@ -101,6 +101,18 @@ function App() {
                         <hr className="dropdown-divider" />
                       </li>
 
+                      {user?.rol === "admin" && (
+                        <>
+                        <li>
+                          <Link className="dropdown-item" to={`/Manage`}> Ver Pedidos </Link>
+                        </li>
+
+                        <li>
+                          <hr className="dropdown-divider" />
+                        </li>
+                        </>
+                      )}
+
                       <li>
                         <button className="dropdown-item" onClick={handleLogout}>
                           Cerrar Sesión
