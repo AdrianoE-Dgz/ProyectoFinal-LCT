@@ -1,8 +1,9 @@
 import { useDatosAllPedidos } from '/src/hooks/useDatosAllPedidos';
 import { useDatosPedidoId } from '/src/hooks/useDatosPedidoId';
 import './Admin.css'
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { datosProductos } from '/src/httpRequests';
 const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 
 function Admin() {
@@ -10,6 +11,7 @@ function Admin() {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const [ inputId, setInputId ] = useState("");
+  const [productosMostrar, setProductosMostrar] = useState([]);
 
   const { pedidos, error: errorAll, loading: loadingAll } = useDatosAllPedidos();
   const { pedido, error: errorOne, loading: loadingOne } = useDatosPedidoId(id);
@@ -19,6 +21,14 @@ function Admin() {
   const data = id ? (pedido ? [pedido] : []) : pedidosListos;
 
   const cargando = loadingOne || loadingAll;
+
+  useEffect(()=>{
+      async function cargarProductos() {
+        const data = await datosProductos();
+        setProductosMostrar(data.productos);
+      }
+      cargarProductos();
+    }, []);
 
   const busqueda = () => {
     if(inputId.trim()===""){
@@ -81,13 +91,16 @@ function Admin() {
 
                     <td>
                   <ul>
-                  {
-                    (pedido.contenido || []).map((currentValue, index) => (
-                    <li key={index}>
-                      {currentValue}
-                    </li>
-                    ))
-                  }
+                    {pedido.contenido?.map((currentValue, index) => {
+                          const prod = productosMostrar.find(
+                            p=>p.id===Number(currentValue)
+                          );
+                          return(
+                            <li key={index}>
+                              {prod?.nombre || currentValue}
+                            </li>
+                          );
+                      })}
                   </ul>
                 </td>
 
