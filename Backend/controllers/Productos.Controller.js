@@ -75,7 +75,7 @@ const getPrecioTotal = async (req, res) => {
     precioTotal += productos.find(p => p.id === 1).precio;
     precioTotal += productos.find(p => p.id === 2).precio;
     
-    res.json({ precioTotal }); 
+    res.json(precioTotal); 
   } catch (error) { 
     console.error('Error al obtener producto:', error); 
     res.status(500).json({ mensaje: 'Error al obtener producto' }); 

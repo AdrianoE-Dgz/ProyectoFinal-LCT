@@ -207,3 +207,55 @@ export async function datosProductos() {
     return {exito: false, mensaje: 'Error al conectar con el servidor'};
   }
 }
+
+export async function datosAllPedidos() {
+  try {
+    const res = await fetch(`${API_URL}/api/pedidos/obtenerPedidos`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: data.msg};
+    }
+
+    const pedidos = data;
+    console.log(pedidos);
+
+    return {exito: true, pedidos: pedidos};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}
+
+export async function datosPedidosPorId(id) {
+  try {
+    const res = await fetch(`${API_URL}/api/pedidos/obtenerPedidoId/${Number(id)}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
+      }
+    })
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error(data);
+      return  {exito: false, mensaje: data.msg};
+    }
+
+    const pedido = data;
+    console.log(pedido);
+
+    return {exito: true, pedido: pedido};
+  } catch (error) {
+    console.error( error );
+    return {exito: false, mensaje: 'Error al conectar con el servidor'};
+  }
+}
