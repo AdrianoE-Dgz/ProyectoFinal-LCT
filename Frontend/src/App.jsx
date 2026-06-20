@@ -41,7 +41,7 @@ function App() {
     if (loggedInUser) {
       setUser({nombre: localStorage.getItem('nombre'), rol: localStorage.getItem('rol')});
     }
-  }, [setUser]);
+  }, []);
 
   function handleLogout(){
     localStorage.removeItem("nombre");
