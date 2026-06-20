@@ -72,9 +72,9 @@ const updatePedido = async (req, res) => {
   console.log("** ENTRAR UPDATE **");
   try { 
     const { id } = req.params; 
-    const { fechaEntrega } = req.body; 
+    const { fechaEntrega, direccion } = req.body; 
  
-    const filas = await PedidosModel.updatePedido(fechaEntrega, id); 
+    const filas = await PedidosModel.updatePedido(fechaEntrega, direccion, id); 
     if (filas === 0) {
       console.log('Pedido no encontrado');
       return res.status(404).json({ mensaje: 'Pedido no encontrado' });
