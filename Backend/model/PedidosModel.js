@@ -46,7 +46,7 @@ async function insertPedido(usuarios_id, contenido, fechaPedido, fechaEntrega, d
 
 async function updatePedido(fechaEntrega, direccion, id) {
     const [result] = await connection.query(
-        'UPDATE pedido SET (fechaEntrega, direccion) VALUES (?, ?) WHERE id = ?',
+        'UPDATE pedido SET fechaEntrega = ?, direccion = ? WHERE id = ?',
         [fechaEntrega, direccion, id]
     );
     return result.affectedRows;

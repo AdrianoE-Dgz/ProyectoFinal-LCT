@@ -1,15 +1,24 @@
 import { lazy, Suspense, useState } from 'react';
 import { useDatosUsuario } from '/src/hooks/useDatosUsuario';
 import { useDatosPedidoUser } from '/src/hooks/useDatosPedidoUser';
+import { actualizarFechaPedido, borrarPedido } from '/src/httpRequests';
 import './Userpage.css'
+import { useEffect } from 'react';
 
 const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 
 function Userpage() {
   const { usuario, errorUser } = useDatosUsuario();
   const { pedidos, error } = useDatosPedidoUser();
-
+  
+  const [ listaPedidos, setListaPedidos]=useState([]);
+  const [mensajeExito, setMensajeExito] = useState(null);
+  const [errorCambio, setMensajeError] = useState(null);
   const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
+
+  useEffect(()=>{
+    setListaPedidos(pedidos || []);
+  }, [pedidos]);
 
   function modificarPedido(pedido) {
     setPedidoSeleccionado({
@@ -17,9 +26,47 @@ function Userpage() {
     });
   }
 
-  function guardarCambios() {
-    console.log('Pedido modificado:', pedidoSeleccionado);
-    setPedidoSeleccionado(null);
+  async function eliminarPedido(pedido) {
+    try{
+        const resultado = await borrarPedido(pedido.id);
+        if(resultado.exito){
+          setMensajeExito(resultado.mensaje);
+          setMensajeError(null);
+
+          setListaPedidos(prev => prev.filter(p => p.id !== pedido.id));
+        }
+        else{
+          setMensajeError("No se pudieron borrar los datos");
+          setMensajeExito(null);
+        }
+    }catch(error){
+        setMensajeError("No se pudieron borrar los datos");
+        setMensajeExito(null);
+    }finally{
+            setPedidoSeleccionado(null);
+        }
+  }
+
+  async function guardarCambios() {
+        try{
+            console.log(pedidoSeleccionado);
+            const resultado = await actualizarFechaPedido(pedidoSeleccionado.id, pedidoSeleccionado.fechaEntrega, pedidoSeleccionado.direccion);
+            if(resultado.exito){
+              setMensajeExito(resultado.mensaje);
+              setMensajeError(null);
+
+              setListaPedidos(prev => prev.map(p => p.id === pedidoSeleccionado.id ? { ...p, ...pedidoSeleccionado} : p));
+            }
+            else{
+              setMensajeError("No se pudieron editar los datos");
+              setMensajeExito(null);
+            }
+        }catch(error){
+            setMensajeError("No se pudieron editar los datos");
+            setMensajeExito(null);
+        }finally{
+            setPedidoSeleccionado(null);
+        }
   }
 
   return (
@@ -52,9 +99,17 @@ function Userpage() {
             </div>
           )}
 
-          {errorUser && (
-            <Notice mensaje={errorUser} color='danger' />
-          )}
+            {errorUser && (
+              <Notice mensaje={errorUser} color='danger' />
+            )}
+
+            {errorCambio && (
+              <Notice mensaje={errorCambio} color='danger' />
+            )}
+
+            {mensajeExito && (
+              <Notice mensaje={mensajeExito} color='success' />
+            )}
 
           <h2 className="mb-3 text-primary">
             Mis Pedidos
@@ -79,7 +134,7 @@ function Userpage() {
               </thead>
 
               <tbody>
-                {pedidos.map((pedido) => (
+                {listaPedidos?.map((pedido) => (
                   <tr key={pedido.id}>
                     <td>
                       <span className="badge bg-secondary">
@@ -89,7 +144,7 @@ function Userpage() {
 
                     <td>
                       <ul>
-                        {pedido.contenido.map((currentValue, index) => (
+                        {pedido.contenido?.map((currentValue, index) => (
                           <li key={index}>
                             {currentValue}
                           </li>
@@ -123,7 +178,7 @@ function Userpage() {
                           Modificar
                         </button>
 
-                        <button className="btn btn-danger btn-sm">
+                        <button className="btn btn-danger btn-sm" onClick={() => eliminarPedido(pedido)}>
                           Eliminar
                         </button>
                       </div>
@@ -151,25 +206,6 @@ function Userpage() {
               </div>
 
               <div className="modal-body">
-
-                <div className="mb-3">
-                  <label className="form-label">
-                    Dirección
-                  </label>
-
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={pedidoSeleccionado.direccion}
-                    onChange={(e) =>
-                      setPedidoSeleccionado({
-                        ...pedidoSeleccionado,
-                        direccion: e.target.value
-                      })
-                    }
-                  />
-                </div>
-
                 <div className="mb-3">
                   <label className="form-label">
                     Fecha de Entrega
@@ -193,41 +229,24 @@ function Userpage() {
 
                 <div className="mb-3">
                   <label className="form-label">
-                    Precio
+                    Dirección
                   </label>
 
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
-                    value={pedidoSeleccionado.precio}
+                    value={pedidoSeleccionado.direccion}
                     onChange={(e) =>
                       setPedidoSeleccionado({
                         ...pedidoSeleccionado,
-                        precio: Number(e.target.value)
+                        direccion: e.target.value
                       })
                     }
                   />
                 </div>
-
-                <div className="mb-3">
-                  <label className="form-label">
-                    Contenido Actual
-                  </label>
-
-                  <ul className="list-group">
-                    {pedidoSeleccionado.contenido.map(
-                      (ingrediente, index) => (
-                        <li key={index} className="list-group-item" >
-                          {ingrediente}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
               </div>
 
               <div className="modal-footer">
-
                 <button className="btn btn-secondary" onClick={() => setPedidoSeleccionado(null)}>
                   Cancelar
                 </button>
