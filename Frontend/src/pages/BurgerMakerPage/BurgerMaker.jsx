@@ -17,6 +17,7 @@ function BurgerMaker() {
   const navigate = useNavigate();
 
   const GuardarBurger = () => {
+    console.log('GUARDAR BURGER')
     const vector = obtenerIngredientes();
 
     if(vector.length === 0){

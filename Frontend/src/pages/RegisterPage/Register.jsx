@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { registUser } from '/src/httpRequests';
 import './Register.css'
 
@@ -15,8 +15,6 @@ function Register() {
   const [passwordNotice, setPasswordNotice] = useState('Contraseña vacia');
   const [confirmNotice, setConfirmNotice] = useState('Contraseñas no coinciden');
   const [disable, setDisable] = useState(null)
-  
-  const navigate = useNavigate();
   const { authCallback } = useOutletContext();
 
   const handleName = (e) => {
@@ -77,7 +75,7 @@ function Register() {
 
   const handlePassword = (e) => {
     const text = e.target.value;
-    const regex = new RegExp(`^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$`);
+    const regex = new RegExp('^(?=.*\\d)(?=.*[\\u0021-\\u002b\\u003c-\\u0040])(?=.*[A-Z])(?=.*[a-z])\\S{8,16}$');
 
     setPassword(text);
 
@@ -143,10 +141,6 @@ function Register() {
     }
   })
 
-  const goLogin = () => {
-    navigate('/Auth/Login');
-  }
-
   return (
     <>
       <form id="registerForm" onSubmit={registerUser}>
@@ -199,7 +193,7 @@ function Register() {
           <button type="submit" className="btn btn-primary" disabled={disable}>Registrarse</button>
         </div>
       </form>
-      <p className='text-center'>¿Ya tienes una cuenta? <a href='' className='text-primary' onClick={goLogin}>Inicia Seción</a></p>
+      <p className='text-center'>¿Ya tienes una cuenta? <Link className='text-primary' to='/Auth/Login'>Iniciar Sesión</Link></p>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useContext, useRef, lazy, useState } from 'react'
 import { Context } from "/src/Context.jsx";
 import { makeOrder, datosProductos } from '/src/httpRequests';
@@ -7,11 +7,10 @@ import './Payment.css'
 const Notice = lazy(() => import('/src/components/NoticeComponent/Notice.jsx'));
 
 function Payment() {
-  const navigate = useNavigate();
   const [ precio, setPrecio ] = useState(1);
   const [ burgerList, setBurgerList ] = useState([]);
   const { burger, setBurger } = useContext(Context);
-  const { burgerNotice, setNotice } = useState(null);
+  const [ burgerNotice, setNotice ] = useState(null);
   const direccionRef = useRef('');
   const fechaRef = useRef('');
 
@@ -67,7 +66,7 @@ function Payment() {
 
     stringBurger = stringBurger.slice(0, -1);
 
-    const hoy = new Date();
+    const hoy = new Date().toISOString().slice(0, 10);
     const entrega = fechaRef.current.value;
     const direccion = direccionRef.current.value;
 
@@ -80,11 +79,6 @@ function Payment() {
     } else {
       setNotice({mensaje: data.mensaje, color: 'danger'});
     }
-  }
-
-  const goBurgerMaker = () => {
-    setBurger([]);
-    navigate('/CrearHamburguesa');
   }
 
   return (
@@ -122,7 +116,10 @@ function Payment() {
               </div>
             </form>
             {
-
+              burgerNotice ? 
+              <Notice mensaje={burgerNotice.mensaje} color={burgerNotice.color} />
+              :
+              <></>
             }
           </>
         :
@@ -130,7 +127,7 @@ function Payment() {
             <Notice mensaje="No se pudo procesar el pago, intente realizar su pedido nuevamente" color="danger" />
           </>
         }
-        <a href='' className='btn btn-primary text-center mt-3' onClick={goBurgerMaker}>Regresar a realizar Hamburguesa</a>
+        <Link className='btn btn-primary text-center mt-3' to={'/CrearHamburguesa'}>Regresar a realizar Hamburguesa</Link>
       </div>
     </section>
   )

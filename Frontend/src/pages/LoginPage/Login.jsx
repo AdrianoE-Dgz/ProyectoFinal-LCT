@@ -1,4 +1,4 @@
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import { Context } from "/src/Context.jsx";
 import { logUser } from '/src/httpRequests';
@@ -8,8 +8,6 @@ function Login() {
   const [logUsername, setUsername] = useState(null);
   const [logPassword, setPassword] = useState(null);
   const {setUser} = useContext(Context);
-
-  const navigate = useNavigate();
   const { authCallback } = useOutletContext();
 
   const handleUsername = (e) => {
@@ -43,10 +41,6 @@ function Login() {
     }
   };
 
-  const goRegister = () => {
-    navigate('/Auth/Register');
-  }
-
   useEffect(() => {
     const loggedInUser = localStorage.getItem("token");
     if (loggedInUser) {
@@ -73,7 +67,7 @@ function Login() {
           <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
         </div>
       </form>
-      <p className='text-center'>¿No tienes una cuenta? <a href='' className='text-primary' onClick={goRegister}>Registrate</a></p>
+      <p className='text-center'>¿No tienes una cuenta? <Link className='text-primary' to='/Auth/Register'>Registrate</Link></p>
     </> 
   )
 }
